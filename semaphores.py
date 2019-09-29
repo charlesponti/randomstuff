@@ -1,4 +1,4 @@
-# Semaphoreshave an internal counter that is incremented and
+# Semaphores have an internal counter that is incremented and
 # decremented whenever an acquire or release class is made.
 import asyncio
 
