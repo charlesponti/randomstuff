@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "831037490e38b8832d0664fc0aa9efa8175677f5e830bc26240b479ea9fc78c2"
+            "sha256": "3a30a462238f27ca9e0e647a2a1a8c088bb08f1c6d1caf508ed2572905268e1d"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -141,6 +141,20 @@
             ],
             "index": "pypi",
             "version": "==0.25.1"
+        },
+        "py4j": {
+            "hashes": [
+                "sha256:721189616b3a7d28212dfb2e7c6a1dd5147b03105f1fc37ff2432acd0e863fa5",
+                "sha256:a950fe7de1bfd247a0a4dddb9118f332d22a89e01e0699135ea8038c15ee1293"
+            ],
+            "version": "==0.10.7"
+        },
+        "pyspark": {
+            "hashes": [
+                "sha256:13655eb113b8cf5f3f85b24fd92f86c4668a723723bd68949d028fa0df2cf694"
+            ],
+            "index": "pypi",
+            "version": "==2.4.4"
         },
         "python-dateutil": {
             "hashes": [
