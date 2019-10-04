@@ -1,5 +1,5 @@
-from baseball_teams import get_teams
-from functools import reduce
+from json import JSONEncoder
+from csv import DictReader, DictWriter
+import pandas as pd
 
-for team in get_teams():
-  print(team['name'])
+person = pd.DataFrame({ 'name': 'Chase', 'age': 33, 'hair': 'black'})
