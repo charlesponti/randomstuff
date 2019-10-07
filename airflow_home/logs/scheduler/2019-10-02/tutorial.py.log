@@ -1,0 +1,5 @@
+[2019-10-02 17:58:23,720] {scheduler_job.py:146} INFO - Started process (PID=80458) to work on /Users/charlesponti/Developer/airflow-apache-tutorial/airflow_home/dags/tutorial.py
+[2019-10-02 17:58:23,731] {scheduler_job.py:1520} INFO - Processing file /Users/charlesponti/Developer/airflow-apache-tutorial/airflow_home/dags/tutorial.py for tasks to queue
+[2019-10-02 17:58:23,732] {logging_mixin.py:95} INFO - [2019-10-02 17:58:23,732] {dagbag.py:90} INFO - Filling up the DagBag from /Users/charlesponti/Developer/airflow-apache-tutorial/airflow_home/dags/tutorial.py
+[2019-10-02 17:58:23,735] {scheduler_job.py:1534} WARNING - No viable dags retrieved from /Users/charlesponti/Developer/airflow-apache-tutorial/airflow_home/dags/tutorial.py
+[2019-10-02 17:58:23,736] {scheduler_job.py:152} INFO - Processing /Users/charlesponti/Developer/airflow-apache-tutorial/airflow_home/dags/tutorial.py took 0.016 seconds
