@@ -11,6 +11,7 @@ pandas = "*"
 requests = "*"
 flask = "*"
 pyspark = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.7"
