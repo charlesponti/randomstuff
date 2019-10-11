@@ -7,9 +7,7 @@
 
 # plt.show()
 import pandas as pd
-import csv
-import json
-from flask import Flask, Request, Response
+from flask import Flask
 
 app = Flask(__name__, static_folder='./app/build')
 
@@ -23,7 +21,8 @@ def get(**args):
   return transactions.to_json()
 
 @app.route('/transactions')
-def get_by_amount():
+def get_by_amount(**args):
+  print(args)
   return transactions.query(f"Amount > {args}")
 
 if __name__ == "__main__":
