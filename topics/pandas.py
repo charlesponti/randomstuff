@@ -1,12 +1,17 @@
+import csv
 import pandas as pd
 
-with open('./data/transactions.csv') as csvfile:
-  fieldnames = [
-    "Date", "Description", "Original Description", "Amount",
-    "Transaction Type", "Category", "Account Name", "Labels", "Notes"
-  ]
-  reader = csv.DictReader(csvfile, fieldnames=fieldnames)
-  df = pd.DataFrame(reader)
-  print(df)
+csvfile = open('./data/transactions.csv')
 
-transactions = pd.read_csv('./data/transactions.csv', delimiter=',', header=0)
+fieldnames = [
+  "Date", "Description", "Original Description", "Amount",
+  "Transaction Type", "Category", "Account Name", "Labels", "Notes"
+]
+
+reader = csv.DictReader(csvfile)
+
+transactions = pd.DataFrame(reader)
+
+print(transactions.query('Amount >= 10000'))
+
+csvfile.close()

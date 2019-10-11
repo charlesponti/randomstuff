@@ -1,5 +1,5 @@
 from flask import Flask
-from topics.pandas import transactions
+from topics.pyspark import transactions
 
 app = Flask(__name__)
 

@@ -7,11 +7,12 @@ app = Flask(__name__, static_folder='./app/build')
 sc = SparkContext(appName='transactions')
 sqlContext = SQLContext(sparkContext=sc)
 
-tr = (sqlContext
+transactions = (sqlContext
     .read
     .format("com.databricks.spark.csv")
     .option("header", "true")
     .option("mode", "DROPMALFORMED")
     .load("../data/transactions.csv"))
 
-print(tr.select('Date', 'Amount').show())
+
+print(transactions.select('Date', 'Amount').show())
