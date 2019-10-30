@@ -32,12 +32,13 @@ class RunningMessageServer(RunningMessageServicer):
     def LogRunningMetrics(self, request, context):
         for running_metric in request:
             database.add_to_table('running_metrics', running_metric)
-        return Empty
+        return Empty()
 
     def GetRunningMetrics(self, request, context):
         metrics = database.get_table('running_metrics')
         for metric in metrics:
             yield metric
+
 
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 

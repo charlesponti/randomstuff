@@ -1,5 +1,6 @@
 import grpc
 
+from google.protobuf.empty_pb2 import Empty
 from definitions.running_message_pb2 import RunningDetails, RunningMetrics
 from definitions.running_message_pb2_grpc import RunningMessageStub
 
@@ -21,12 +22,13 @@ def generate_metrics():
         yield metric
 
 
-# response = stub.GetRunningMessage(running_details)
+response = stub.GetRunningMessage(running_details)
 
-metrics_response = stub.LogRunningMetrics(generate_metrics)
+metrics_response = stub.LogRunningMetrics(generate_metrics())
 
-get_metrics_response = stub.GetRunningMetrics()
+get_metrics_response = stub.GetRunningMetrics(Empty())
 
 # print(response)
-print(metrics_response)
-print(get_metrics_response)
+# print(metrics_response)
+for metric in get_metrics_response:
+    print(metric)
