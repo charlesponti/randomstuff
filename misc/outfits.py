@@ -1,6 +1,6 @@
 
 weather_forecasts = [
-    { 'day': '2020-01-01', 'temp': 50.7, 'rain': False }
+    { 'date': '2020-01-01', 'temp': 50.7, 'rain': False }
 ]
 
 outfits = [
@@ -13,6 +13,8 @@ outfits = [
 ]
 
 def get_suitable_outfit(date: str):
-    return weather_forecasts[date]
+    for forecast in weather_forecasts:
+        if forecast['date'] == date:
+            return forecast
 
-print(get_suitable_outfit())
+print(get_suitable_outfit('2020-01-01'))
