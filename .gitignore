@@ -23,7 +23,7 @@ build
 
 # Python
 __pycache__
-.venv
+venv
 .ipynb_checkpoints
 
 npm-debug.log*
