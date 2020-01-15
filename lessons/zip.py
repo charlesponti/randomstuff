@@ -54,7 +54,23 @@ data1 = list(zip(letters, numbers))
 data2 = list(zip(numbers, letters))
 
 data1.sort()
-print(data1) # sort by letters
+# print(data1) # sort by letters
 
 data2.sort()
-print(data2) # sort by numbers
+# print(data2)  # sort by numbers
+
+# or use sorted, which can be used on any kind of sequence
+# print(sorted(zip(letters, numbers)))
+
+total_sales = [52000, 51000, 48000]
+production_cost = [46800, 45900, 43200]
+# for sales, cost in zip(total_sales, production_cost):
+#     print(f"{sales} - {cost} = {sales - cost}")
+
+# construct and update dicts
+person_keys = ['name', 'last_name', 'age', 'job']
+person_values = ['Jane', 'Doe', 45, 'Community Manager']
+person_dict = dict(zip(person_keys, person_values))
+print(person_dict)
+person_dict.update(zip(['job'], ['Python Developer']))
+print(person_dict)
