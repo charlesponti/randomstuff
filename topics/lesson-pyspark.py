@@ -13,6 +13,4 @@ transactions = (sqlContext
     .load("./data/transactions.csv")
 )
 
-transactions.
-
 print(transactions.select('Date', 'Amount').show())
