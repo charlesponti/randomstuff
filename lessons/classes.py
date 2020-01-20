@@ -1,6 +1,14 @@
 #
 # Example file for working with classes
 #
+class Person:
+    def __init__(self, name: str, age: int, hair: str, **kwargs):
+        self.name = name
+        self.age = age
+        self.hair = hair
+
+    def get(self):
+        return {"name": self.name, "age": self.age, "hair": self.hair}
 
 class myClass():
   def method1(self):
