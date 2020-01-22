@@ -9,4 +9,7 @@ sock.connect(server_address)
 
 try:
   # send data
-  message = b'this is our message. it is very long but will only be transmitted in chunks of 16 at a time'
+  message = b"this is our message. it is very long but will only be transmitted in chunks of 16 at a time"
+  sock.send(message)
+except:
+  print("Some error occurred")
