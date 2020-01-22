@@ -5,15 +5,10 @@ from os.path import isfile, isdir
 import os
 import re
 
-# file = open('./.gitignore')
-# for line in file:
-#     print(line)
-
-documents_dir = '../../Documents'
-cwd = listdir(documents_dir)
+cwd = listdir('.')
 
 for entry in cwd:
-    path = f"{documents_dir}/{entry}"
+    path = f"./{entry}"
 
     if isfile(path):
         print(f"{path} is a file")
