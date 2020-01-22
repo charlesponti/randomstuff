@@ -17,6 +17,7 @@ typing = "*"
 pytest = "*"
 grpcio = "*"
 grpcio-tools = "*"
+selenium = "*"
 
 [requires]
 python_version = "3.6.9"
