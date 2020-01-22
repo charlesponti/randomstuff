@@ -14,4 +14,4 @@ outfits: List[dict] = [
 ]
 
 def get_forecast(date: str) -> dict:
-    return weather_forecasts[date]
+    return weather_forecasts.get(date)
