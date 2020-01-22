@@ -1,9 +1,10 @@
+from typing import Dict, List
 
-weather_forecasts = [
-    { 'date': '2020-01-01', 'temp': 50.7, 'rain': False }
-]
+weather_forecasts: Dict[str, dict] = {
+    "2020-01-01" : { "temp": 50.7, "rain": False }
+}
 
-outfits = [
+outfits: List[dict] = [
     {
         'jacket': 'mountain warehouse',
         'img': '/jacket/mountain-warehouse.jpg',
@@ -12,9 +13,5 @@ outfits = [
     }
 ]
 
-def get_suitable_outfit(date: str):
-    for forecast in weather_forecasts:
-        if forecast['date'] == date:
-            return forecast
-
-print(get_suitable_outfit('2020-01-01'))
+def get_forecast(date: str) -> dict:
+    return weather_forecasts[date]

@@ -15,6 +15,8 @@ flask = "*"
 pika = "*"
 typing = "*"
 pytest = "*"
+grpcio = "*"
+grpcio-tools = "*"
 
 [requires]
 python_version = "3.6.9"
