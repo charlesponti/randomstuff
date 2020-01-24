@@ -8,9 +8,9 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='sample',
+    name='pontistuff',
     version='0.1.0',
-    description='Sample package',
+    description='a bunch of random stuff',
     long_description=readme,
     author='Charles Ponti',
     author_email='cj@ponti.io',
