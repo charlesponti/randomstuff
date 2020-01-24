@@ -1,10 +1,12 @@
 from typing import Dict
 
+
 class DuplicateTableError(ValueError):
     def __init__(self, ofcorrecttype):
         super().__init__(ofcorrecttype)
 
-class Database():
+
+class Database:
     tables: Dict[str, Dict]
 
     def __init__(self, *args, **kwargs):
@@ -22,4 +24,3 @@ class Database():
 
     def get_table(self, name: str):
         return self.tables[name]
-

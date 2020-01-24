@@ -1,6 +1,7 @@
 import random
 
-class Thing():
+
+class Thing:
     # where we're going to store the things
     things = {}
 
@@ -13,11 +14,12 @@ class Thing():
     def get_random(self):
         return self.things[random.randint(0, len(self.things) - 1)]
 
+
 thing = Thing()
-thing.insert('cats')
+thing.insert("cats")
 print(thing.things)
-thing.insert('dogs')
-thing.insert('birds')
+thing.insert("dogs")
+thing.insert("birds")
 
 for i in range(0, 4):
     print(thing.get_random())

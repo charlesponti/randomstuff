@@ -19,6 +19,7 @@ def some_function():
     f = "def"
     print(f)
 
+
 some_function()
 print(f)
 

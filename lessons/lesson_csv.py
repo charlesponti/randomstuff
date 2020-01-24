@@ -16,4 +16,3 @@ with open("./person.csv", "r") as file:
     data = DictReader(file)
     for row in data:
         print(row)
-

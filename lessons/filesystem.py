@@ -5,7 +5,7 @@ from os.path import isfile, isdir
 import os
 import re
 
-cwd = listdir('.')
+cwd = listdir(".")
 
 for entry in cwd:
     path = f"./{entry}"

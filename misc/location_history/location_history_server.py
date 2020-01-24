@@ -4,23 +4,20 @@
 
 import time
 
+
 class Device:
-  def get_location():
-    return {
-      'lat': 5.345,
-      'lng': 10.567,
-      'is_near_home': True
-    }
+    def get_location():
+        return {"lat": 5.345, "lng": 10.567, "is_near_home": True}
 
-  def update_position():
-    current_time = time.time()
-    current_location = device.get_location()
-    if current_location['is_near_home']:
-      device.turnOnDarkMode()
+    def update_position():
+        current_time = time.time()
+        current_location = device.get_location()
+        if current_location["is_near_home"]:
+            device.turnOnDarkMode()
 
-  def turn_on_dark_mode():
-    device.settings.dark_mode = True
-    device.ui.reset()
+    def turn_on_dark_mode():
+        device.settings.dark_mode = True
+        device.ui.reset()
+
 
 device = Device()
-

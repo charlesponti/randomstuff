@@ -1,5 +1,5 @@
 numbers = [1, 2, 3]
-letters = ['a', 'b', 'c']
+letters = ["a", "b", "c"]
 zipped = zip(numbers, letters)
 
 # Empty list
@@ -48,7 +48,7 @@ zipped = zip(numbers, letters)
 # print(letters)
 
 # ability to sort multiple lists
-letters = ['b', 'a', 'c', 'd']
+letters = ["b", "a", "c", "d"]
 numbers = [3, 1, 2, 4]
 data1 = list(zip(letters, numbers))
 data2 = list(zip(numbers, letters))
@@ -68,9 +68,9 @@ production_cost = [46800, 45900, 43200]
 #     print(f"{sales} - {cost} = {sales - cost}")
 
 # construct and update dicts
-person_keys = ['name', 'last_name', 'age', 'job']
-person_values = ['Jane', 'Doe', 45, 'Community Manager']
+person_keys = ["name", "last_name", "age", "job"]
+person_values = ["Jane", "Doe", 45, "Community Manager"]
 person_dict = dict(zip(person_keys, person_values))
 print(person_dict)
-person_dict.update(zip(['job'], ['Python Developer']))
+person_dict.update(zip(["job"], ["Python Developer"]))
 print(person_dict)

@@ -10,7 +10,7 @@ def return_message(miles, total_time):
     of the details and with an unuseful image. I wanted to think of ways that
     different options could be allowed for sharing with friends
     """
-    time_per_mile = format(total_time / miles, '.2f')
+    time_per_mile = format(total_time / miles, ".2f")
     return f"I went for a run today. I did {format(miles, '.2f')} miles in {format(total_time, '.2f')} ({time_per_mile})"
 
 
