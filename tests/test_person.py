@@ -1,4 +1,4 @@
-from lessons.classes import Person, SpecialPerson
+from models.person import Person, SpecialPerson
 
 
 def setup_function():
