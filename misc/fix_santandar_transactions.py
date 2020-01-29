@@ -1,8 +1,8 @@
-from typing import List
 import json
-from csv import DictReader, DictWriter
 import sys
-from getopt import getopt, GetoptError
+from csv import DictReader, DictWriter
+from getopt import GetoptError, getopt
+from typing import List
 
 data = None
 file = None
@@ -13,7 +13,7 @@ def get_arguments(unixOptions: str, gnuOptions):
     try:
         return getopt(sys.argv[1:], unixOptions, gnuOptions)
     except GetoptError as err:
-        print(f"Error getting arguments: {err}")
+        raise OSError(f"Error getting arguments: {err}")
 
 
 options, arguments = get_arguments("f:", ["file"])
@@ -40,3 +40,5 @@ if file:
         writer.writerows(transactions)
     print(len(transactions))
     print(transactions[-1])
+else:
+    raise Warning("Please provide a -f with the path to the csv file")
