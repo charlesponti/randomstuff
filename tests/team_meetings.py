@@ -19,27 +19,20 @@ toast brunches!
 HELPPPPP!!!
 """
 import calendar
+import json
 from datetime import datetime
 
 cal = calendar.Calendar(firstweekday=0)  # Create a calendar
-months = calendar.month_name[1:] # Get the names of calendar months
+months = calendar.month_name[1:]  # Get the names of calendar months
 today = datetime.today()
-meeting_days = [] # Store days of month for team meeting
-year = {}
+meeting_days = []  # Store days of month for team meeting
 
-for month in range(0, 12):
-        for day in cal.itermonthdates(2020, month):
-                month = months[day.month-1]
-                # If day is on Friday, add to meeting days
-                if day.isoweekday() == 5:
-                        meeting_days.append(day.day)
-                        if month in year:
-                                year[month].append(day.day)
-                        else:
-                                year[month] = [day.day]
+for month in range(1, 12):
+    for day in cal.itermonthdates(2020, month):
+        month = months[day.month - 1]
+        # If day is on Friday, add to meeting days
+        if day.isoweekday() == 5:
+            day_str = f"{month} {day.day} {day.year}"
+            meeting_days.append(day_str)
 
-for x, month_number in zip(months, year.keys()):
-        print(f"The month name is {x}, and the month number is {month_number}")
-
-print(year)
-print(meeting_days)
+print(json.dumps(meeting_days))
