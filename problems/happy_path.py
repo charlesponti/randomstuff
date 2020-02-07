@@ -11,7 +11,7 @@ def valid_square(grid, row, col):
 
 
 def is_at_end(grid, row, col):
-    return row == (len(grid) - 1) and col == (len(grid[row]) - 1)
+    return row >= (len(grid) - 1) and col >= (len(grid[row]) - 1)
 
 
 def count_paths(grid: list, row: int, col: int):

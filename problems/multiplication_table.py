@@ -1,14 +1,14 @@
+from typing import List
+
 import numpy as np
 import pandas as pd
-
-from typing import List
 
 
 def multiplication_table(max: int) -> List:
     """
-  Create a grid containing the multiplication table up
-  a max.
-  """
+    Create a grid containing the multiplication table up
+    a max.
+    """
     rows = []
 
     for i in range(1, max + 1):
@@ -34,5 +34,5 @@ def grid_to_strings(rows: list):
 
 rows = pd.DataFrame(multiplication_table(12))
 
-print(rows.describe())
-# grid_to_strings(rows)
+if __name__ == "main":
+    print(rows.describe())
