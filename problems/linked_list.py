@@ -1,71 +1,63 @@
-class Home:
-    def __init__(self, value):
-        self.value = value
-        self.next_owner = None
-
-    def add_to_tail(self, value):
-        on = self
-
-        while on.next:  # traverse list while the current Node has next value
-            # print(f"{value} inserted after {on.next.value}")
-            on = on.next  # assign next value to current Node to step forward
-
-        on.next = Node(value)  # add value to end of list
-        # print(f"Inserted {on.next.value}")
-
-    def get_at_index(self, index):
-        on = self
-
-        while on and index:  # traverse list until on node and index not 0
-            on = on.next  # assign to next item in list
-            index = index - 1  # decrement until at index
-
-        if on:
-            return on.value
-        else:
-            return False
-
-    def add_at_index(self, value, index=0):
-        on = self
-
-        while on and index:
-            on = on.next
-            index = index - 1
-
-        if on:
-            on.value = value
-        else:
-            return False
+from logging import info
+from typing import Any, Union
 
 
 class Node:
+    """Node of a linked list
+
+    :param value: value to assign to Node
+    :type value: Any
+    """
+
     def __init__(self, value):
+        """Constructor method
+        """
         self.value = value
         self.next = None
 
-    def add_to_tail(self, value):
+    def add_to_tail(self, value: Any) -> None:
+        """Add value to end of linked list
+
+        :param value: value to add at end of list
+        :type value: any
+        :return: `int` if value set, `False` otherwise
+        :type: `int` or `False`
+        """
         on = self
 
         while on.next:  # traverse list while the current Node has next value
-            # print(f"{value} inserted after {on.next.value}")
-            on = on.next  # assign next value to current Node to step forward
+            on = on.next  # move to next Node
 
         on.next = Node(value)  # add value to end of list
-        # print(f"Inserted {on.next.value}")
 
-    def get_at_index(self, index):
+    def get_at_index(self, index) -> Union[int, bool]:
+        """Get value at index
+
+        :param index: index to get value at
+        :type index: int
+        :return: `int` if value set, `False` otherwise
+        :type: `int` or `False`
+        """
         on = self
 
         while on and index:  # traverse list until on node and index not 0
-            on = on.next  # assign to next item in list
+            on = on.next  # move to next Node
             index = index - 1  # decrement until at index
 
         if on:
-            return on.value
+            return on.value  # return current Node to list
         else:
-            return False
+            return False  # return false if list is shorter than index provided
 
-    def add_at_index(self, value, index=0):
+    def add_at_index(self, value, index: int = 0) -> Union[None, bool]:
+        """Set new value at index in list
+
+        :param value: value to set at index
+        :type value: Any
+        :param index: index to set value to
+        :type index: int
+        :return: `None` if value set, `False` otherwise
+        """
         on = self
 
         while on and index:
@@ -77,19 +69,17 @@ class Node:
         else:
             return False
 
+    def get_length(self) -> int:
+        """Get length of list
 
-node = Node(4)
-node.add_to_tail(5)
-node.add_to_tail(6)
+        :return: Length of the list
+        :rtype: int
+        """
+        on = self
+        counter = 1  # start at 1 because we're at the first Node
 
+        while on.next:
+            counter += 1  # increase counter
+            on = on.next  # move to next Noded
 
-def print_nodes_until_index(node: Node, index: int):
-    for idx in range(index + 1):
-        print(node.get_at_index(idx))
-
-
-# print_nodes_until_index(node, 2)
-
-node.add_at_index(15, index=1)
-# print(node.get_at_index(1))
-print_nodes_until_index(node, 2)
+        return counter
