@@ -9,16 +9,11 @@ verify_ssl = true
 numpy = "*"
 pandas = "*"
 requests = "*"
-pyspark = "*"
-matplotlib = "*"
 flask = "*"
-pika = "*"
-typing = "*"
 pytest = "*"
 grpcio = "*"
 grpcio-tools = "*"
 selenium = "*"
-todoist-python = "*"
 
 [requires]
-python_version = "3.6.9"
+python_version = "3.6"
