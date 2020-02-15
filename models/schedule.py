@@ -13,5 +13,8 @@ class ScheduleItem:
 
 
 class Schedule:
-    daily: List[ScheduleItem] = {}
-    weekly: List[ScheduleItem] = {}
+    daily: List[ScheduleItem] = []
+    weekly: List[ScheduleItem] = []
+
+    def add_to_daily(self, schedule_item: ScheduleItem):
+        self.daily.append(schedule_item)
