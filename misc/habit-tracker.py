@@ -10,5 +10,6 @@ class Habit:
     action: str
     frequency: str
 
+
 casts = "foo"
 habits: List[Habit] = [{"action": "read 60 pages", "frequency": "EVERY_DAY"}]

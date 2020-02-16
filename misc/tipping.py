@@ -26,6 +26,7 @@ class DB:
 
 db = DB()
 
+
 def charge_card(card_number, amount):
     has_enough_funds = db.get_card_balance(card_number) > amount
     if has_enough_funds:

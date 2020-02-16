@@ -20,6 +20,7 @@ def get_arguments(unixOptions: str, gnuOptions):
     except GetoptError as err:
         raise OSError(f"Error getting arguments: {err}")
 
+
 def get_transactions_file():
     options, arguments = get_arguments("f:", ["file"])
 
@@ -32,12 +33,11 @@ def get_transactions_file():
     else:
         raise Warning("Please provide a -f with the path to the csv file")
 
+
 def fix_transactions_dates(file: str):
     """
     Convert "DAY/MONTH/YEAR" to "YEAR-MONTH-DAY"
     """
-
-
 
 
 if __name__ == "__main__":
