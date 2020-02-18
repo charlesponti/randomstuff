@@ -1,4 +1,4 @@
-from models.person import Person, SpecialPerson
+from app.main.model.person import Person, SpecialPerson
 
 
 def setup_function():

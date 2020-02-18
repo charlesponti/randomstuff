@@ -2,7 +2,7 @@ from datetime import timedelta
 
 import pytest
 
-from models.schedule import DuplicateError, Schedule, ScheduleItem
+from app.main.model.schedule import DuplicateError, Schedule, ScheduleItem
 
 
 @pytest.fixture
