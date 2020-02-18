@@ -5,7 +5,7 @@ from app.main.model.reading import Article, Book
 
 @pytest.fixture
 def article():
-    return (Article(word_length=250),)
+    return Article(word_length=250)
 
 
 @pytest.fixture
