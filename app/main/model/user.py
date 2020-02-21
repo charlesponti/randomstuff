@@ -18,6 +18,7 @@ class User(object):
     reading_speed: int
 
     def __init__(self, *args, weight: int = 0, height: int = 0):
+        "Constructor method"
         super().__init__()
         self.weight = weight
         self.height = height
