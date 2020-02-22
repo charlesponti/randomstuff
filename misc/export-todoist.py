@@ -1,16 +1,20 @@
 import json
+import os
 
 import requests
 from flask import Flask
 from todoist.api import TodoistAPI
 
+from dotenv import load_dotenv
+
+load_dotenv()
 app = Flask(__name__)
 
-app.
-
-api = TodoistAPI('0123456789abcdef0123456789abcdef01234567')
+api = TodoistAPI(os.environ["TODOIST_API_TOKEN"])
+# api = TodoistAPI(environ.get("TODOIST_API_TOKEN"))
 api.sync()
-print(api.state['projects'])
+print(api.state["projects"])
+
 
 @app.route("/lists")
 def get_lists():

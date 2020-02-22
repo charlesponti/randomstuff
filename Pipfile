@@ -19,6 +19,8 @@ grpcio = "*"
 grpcio-tools = "*"
 selenium = "*"
 todoist-python = "*"
+coverage = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.6.9"
