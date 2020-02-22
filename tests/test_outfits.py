@@ -1,4 +1,4 @@
-from misc.outfits import weather_forecasts, get_forecast
+from app.main.controller.outfits import get_forecast, weather_forecasts
 
 
 def test_get_weather():
