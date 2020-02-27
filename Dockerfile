@@ -8,12 +8,10 @@ ENV PYTHONUNBUFFERED 1
 # install dependencies
 RUN apk update && apk add gcc
 
-# RUN pip install --upgrade pip pipenv
-
-# COPY Pipfile Pipfile.lock ./
-
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 
 COPY . ./
+
+RUN ["python", ""]
