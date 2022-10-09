@@ -1,23 +1,40 @@
 /**
- * ## Lifestyle Calculator
- * Long ago, I pondered how much could I possibly accomplish in the proceeding three months if all
- * time were maximally utilized?
+ * Lifestyle Calculator
+ *
+ * I once pondered how much could be accomplished if one's time were maximally utilized.
+ *
+ * This file is the exploration of that pondering.
  */
 
+const WEEKLY = 'weekly';
+const DAILY = 'daily';
+const HOURS = 'hours';
+const MINUTES = 'minutes';
+
 /**
- * @description Activities linked to the maintainance and improved of the body.
+ * Activities linked to the maintainance and improvement of the body.
  */
 export const body = {
-  cooking: '2 H per day',
-  sleep: '7 H per day',
-  exercise: '45 M per day',
-  yoga: '1 H per week',
+  cooking: {duration: 2, durationType: HOURS, interval: DAILY},
+  sleep: {duration: 7, durationType: HOURS, interval: DAILY},
+  exercise: {duration: 45, durationType: MINUTES, interval: DAILY},
+  yoga: {duration: 1, durationType: HOURS, interval: WEEKLY},
 };
 
 /**
- * @description Activities linked to the maintainance and improved of the mind.
+ * Activities linked to the maintainance and improvement of the mind.
  */
 export const mind = {
-  reading: {cost: '1 H', interval: 'daily', score: 5},
-  writing: {cost: '1 H', interval: 'weekly', score: 2},
+  reading: {
+    duration: 1,
+    durationType: HOURS,
+    interval: DAILY,
+    score: 5,
+  },
+  writing: {
+    duration: '1 hours',
+    durationType: HOURS,
+    interval: WEEKLY,
+    score: 2,
+  },
 };
