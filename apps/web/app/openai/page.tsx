@@ -38,54 +38,38 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className={isDarkMode ? 'dark' : ''}>
-      <header className="py-8 px-4">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-4xl font-bold">Startup</h1>
-          <button
-            className="px-4 py-2 rounded text-white bg-blue-500 hover:bg-blue-600"
-            onClick={toggleDarkMode}
-          >
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-          </button>
+    <>
+      <h2 className="text-2xl font-bold mb-8 text-center">ChatGPT</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          {error && (
+            <div className="bg-red-500 text-white p-4 mb-4 rounded">
+              {error}
+            </div>
+          )}
         </div>
-      </header>
-      <main className="container mx-auto py-16 px-4">
-        <h2 className="text-2xl font-bold mb-8">Welcome to Our Startup</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            {error && (
-              <div className="bg-red-500 text-white p-4 mb-4 rounded">
-                {error}
-              </div>
-            )}
-          </div>
+        <div className="flex justify-between">
           <input
             type="text"
             value={inputValue}
             onChange={e => setInputValue(e.target.value)}
             placeholder="Enter your value"
-            className="p-2 mb-4 w-full border border-gray-300 focus:outline-none"
+            className="p-2 w-full border border-gray-300 focus:outline-none flex-1 rounded-r-none rounded-l-md"
           />
-          <button className="px-4 py-2 rounded text-white bg-blue-500 hover:bg-blue-600">
+          <button className="px-4 py-1 rounded text-white bg-blue-500 hover:bg-blue-600 rounded-l-none rounded-r-md">
             Submit
           </button>
-        </form>
-        <div>
-          {responseValue && (
-            <div className="mt-8">
-              <h3 className="text-xl font-bold mb-4">Response</h3>
-              <p>{responseValue}</p>
-            </div>
-          )}
         </div>
-      </main>
-      <footer className="py-4 px-4 bg-gray-200 dark:bg-gray-800">
-        <div className="container mx-auto text-center">
-          &copy; 2023 Startup. All rights reserved.
-        </div>
-      </footer>
-    </div>
+      </form>
+      <div>
+        {responseValue && (
+          <div className="mt-8">
+            <h3 className="text-xl font-bold mb-4">Response</h3>
+            <p>{responseValue}</p>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 
