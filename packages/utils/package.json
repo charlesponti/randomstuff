@@ -11,6 +11,8 @@
   "dependencies": {
     "@hapi/boom": "^9.1.4",
     "axios": "^0.21.0",
+    "chrono-node": "^2.7.5",
+    "compromise": "^14.13.0",
     "csvtojson": "^2.0.10",
     "dotenv": "^8.2.0",
     "google-auth-library": "8.8.0",
