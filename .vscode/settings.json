@@ -4,12 +4,15 @@
   "biome.enabled": true,
   "cSpell.words": [
     "AUTOINCREMENT",
+    "chrono",
     "googleauth",
     "libsql",
     "openai",
     "Peloton",
     "ponti",
     "posttest",
-    "prepush"
+    "prepush",
+    "shadcn",
+    "vercel"
   ]
 }
