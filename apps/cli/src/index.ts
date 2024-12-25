@@ -1,13 +1,15 @@
 import process from "node:process";
 import { Command } from "commander";
-import { applications, db } from "./db/index.ts";
-import { ApplicationStatus } from "./db/schema.ts";
+
+import aiCommand from "./ai";
+import { applications, db } from "./db";
+import { ApplicationStatus } from "./db/schema";
 
 const program = new Command();
 
 program
   .version("1.0.0")
-  .description("Job Application Logger");
+  .description("Collection of useful tools");
 
 program
   .command("log")
@@ -36,5 +38,7 @@ program
     await db.insert(applications).values(application).run();
     console.log("Job application logged successfully.");
   });
+
+program.addCommand(aiCommand);
 
 program.parse(process.argv);

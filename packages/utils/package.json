@@ -5,8 +5,12 @@
   "main": "./src/index.ts",
   "scripts": {
     "build": "tsc",
+    "postinstall": "npm link",
     "test": "vitest --run --passWithNoTests",
     "test:watch": "vitest"
+  },
+  "bin": {
+    "hominem-dev": "./src/cli.ts"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.4",
