@@ -1,19 +1,22 @@
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
 
-import { calculatePerformanceFinancialProjection } from "./utils/finance";
-import { authMiddleware } from "./utils/auth";
-import { getVenue } from "./utils";
+import {
+  calculatePerformanceFinancialProjection,
+  getPerformanceCost,
+} from "../utils/finance";
+import { authMiddleware } from "../utils/auth";
+import { getVenue } from "../utils/venue";
 
 const musicMaker = new Hono();
 
+type ProjectedAttendanceParams = {
+  maxCapacity?: number;
+  avgAttendance?: number;
+  query: Record<string, string>;
+};
 function getProjectedAttendance(
-  { maxCapacity, avgAttendance, query }: {
-    maxCapacity?: number;
-    avgAttendance?: number;
-    query: Record<string, string>;
-    artist: { avgAttendance: number; avgTicketPrice: number };
-  },
+  { maxCapacity, avgAttendance, query }: ProjectedAttendanceParams,
 ): number {
   let attendance: number;
   if (query.attendance) {
@@ -51,7 +54,6 @@ musicMaker.get("/venue/:venueId", authMiddleware, async (c) => {
     maxCapacity: venue.maxCapacity,
     avgAttendance: artist.avgAttendance,
     query,
-    artist,
   });
 
   if (ticketPrice < 0 || attendance < 0) {
@@ -60,16 +62,9 @@ musicMaker.get("/venue/:venueId", authMiddleware, async (c) => {
     });
   }
 
-  let totalExpenses = 0;
-  if (query.cost) {
-    try {
-      totalExpenses = Number(query.cost);
-    } catch (e) {
-      throw new HTTPException(400, {
-        message: "Invalid cost value",
-      });
-    }
-  }
+  const totalExpenses = getPerformanceCost({
+    baseCost: Number(query.cost),
+  });
 
   const projection = calculatePerformanceFinancialProjection({
     ticketPrice,

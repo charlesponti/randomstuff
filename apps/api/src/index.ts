@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 
-import musicMaker from "./music-maker";
+import venueApi from "./music-maker/venue";
 
 type Bindings = {
   ENV: string;
@@ -26,6 +26,6 @@ app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 
-app.route("/music-maker", musicMaker);
+app.route("/music-maker", venueApi);
 
 export default app;

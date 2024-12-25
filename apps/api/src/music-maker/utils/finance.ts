@@ -28,3 +28,19 @@ export function calculatePerformanceFinancialProjection({
     profit: projectedProfit,
   };
 }
+
+export function getPerformanceCost(
+  { baseCost }: { baseCost?: number },
+): number {
+  let totalExpenses: number = 0;
+
+  if (baseCost) {
+    try {
+      totalExpenses = Number(baseCost);
+    } catch (e) {
+      throw Error("Invalid cost value");
+    }
+  }
+
+  return totalExpenses;
+}

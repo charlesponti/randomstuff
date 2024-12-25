@@ -1,10 +1,10 @@
 import { describe, expect, test } from "vitest";
 
-import musicMaker from ".";
+import venueApi from ".";
 
-describe("music-maker", () => {
+describe("venue", () => {
   test("GET venue projection", async () => {
-    const res = await musicMaker.request(
+    const res = await venueApi.request(
       "/venue/456?ticketPrice=50&attendance=100",
     );
     expect(res.status).toBe(200);
@@ -23,7 +23,7 @@ describe("music-maker", () => {
   });
 
   test("GET venue projection with cost", async () => {
-    const res = await musicMaker.request(
+    const res = await venueApi.request(
       "/venue/456?ticketPrice=50&attendance=100&cost=20",
     );
     expect(res.status).toBe(200);
