@@ -20,14 +20,14 @@ export const DEFAULT_SCOPES = [
   "https://www.googleapis.com/auth/calendar",
   "https://mail.google.com/",
 ];
+
 type GoogleOAuthServiceOptions = {
   scopes: string[];
 };
 export class GoogleOAuthService {
-  private client: AuthClient;
   private options: GoogleOAuthServiceOptions;
 
-  static async getCredentials(): Promise<{ installed: any; web: any }> {
+  private async getCredentials(): Promise<{ installed: any; web: any }> {
     try {
       const content = await readFile(CREDENTIALS_PATH);
       return JSON.parse(content.toString());
@@ -37,7 +37,7 @@ export class GoogleOAuthService {
     }
   }
 
-  static async getSavedAuth(): Promise<
+  private async getSavedAuth(): Promise<
     JSONClient | null
   > {
     try {
@@ -51,23 +51,18 @@ export class GoogleOAuthService {
   }
 
   constructor(options: GoogleOAuthServiceOptions) {
-    this.client = null;
     this.options = options;
   }
 
   // Load or request or authorization to call APIs
   async authorize(): Promise<GoogleAuth<JSONClient> | OAuth2Client> {
-    let client = await GoogleOAuthService.getSavedAuth();
+    const client = await this.getSavedAuth();
 
     if (client) {
-      if (!client.credentials) {
-        await this.saveCredentials(client.credentials);
-      }
-
       return client as any as GoogleAuth<JSONClient>;
     }
 
-    // Since we don't have credentials, we need to request them
+    // Request new credentials
     const newClient = await googleAuthenticate({
       scopes: this.options.scopes,
       keyfilePath: CREDENTIALS_PATH,
@@ -80,11 +75,11 @@ export class GoogleOAuthService {
   }
 
   // Create token file if it doesn't exist
-  async saveCredentials(
+  private async saveCredentials(
     credentials: Credentials,
   ): Promise<void> {
     try {
-      const keys = await GoogleOAuthService.getCredentials();
+      const keys = await this.getCredentials();
       const key = keys.installed || keys.web;
       const payload = JSON.stringify({
         type: "authorized_user",
@@ -94,7 +89,7 @@ export class GoogleOAuthService {
       });
       await writeFile(TOKEN_PATH, payload);
     } catch (err) {
-      logger.error("Error loading client secret file:", err);
+      logger.error("Error saving credentials:", err);
       throw err;
     }
   }
