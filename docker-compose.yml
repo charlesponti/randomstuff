@@ -1,24 +1,71 @@
-version: '3.4'
-
 services:
   postgres:
     image: postgres:latest
-    container_name: postgres
+    container_name: hominem-postgres
     restart: always
-    volumes:
-      - random:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: random
+      POSTGRES_DB: hominem
     networks:
-      - random
+      - hominem
     ports:
       - 5432:5432
+    volumes:
+      - hominem-postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongodb:
+    image: mongo:latest
+    container_name: hominem-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: hominem
+    ports:
+      - "27017:27017"
+    volumes:
+      - hominem-mongodb:/data/db
+    healthcheck:
+      test: ["CMD-SHELL", "mongo --eval 'db.adminCommand('ping')'"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:latest
+    container_name: hominem-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - hominem-redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: hominem-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 networks:
-  random:
+  hominem:
     driver: bridge
 
 volumes:
-  random:
+  hominem-postgres:
+  hominem-mongodb:
+  hominem-redis:

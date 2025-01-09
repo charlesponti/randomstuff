@@ -1,45 +1,41 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/src/*.{ts,tsx,md}\"",
-    "clean": "gts clean",
-    "posttest": "npm run lint",
-    "precommit": "npm run format && npm run lint",
-    "postinstall": "husky install",
-    "prepush": "npm run test",
-    "prerelease": "npm run test",
-    "test": "turbo run test",
-    "test:e2e:ci": "turbo run test:e2e:ci",
-    "test:update": "turbo run test:update",
-    "prepare": "husky install"
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/charlesponti/randomstuff/issues"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@turbo/gen": "^1.9.7",
-    "@types/node": "^20.12.4",
     "husky": "^7.0.0",
-    "turbo": "^2.3.3",
-    "typescript": "^5.4.3"
+    "turbo": "^2.3.3"
   },
+  "homepage": "https://github.com/charlesponti/randomstuff#readme",
+  "keywords": [],
+  "license": "ISC",
   "name": "random",
-  "packageManager": "bun@1.1.42",
-  "workspaces": [
-    "scratchpad",
-    "apps/*",
-    "packages/*"
-  ],
+  "packageManager": "npm@10.2.4",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/charlesponti/randomstuff.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/charlesponti/randomstuff/issues"
+  "scripts": {
+    "build": "turbo run build",
+    "clean": "gts clean",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "postinstall": "husky install",
+    "posttest": "npm run lint",
+    "prepare": "husky install",
+    "prepush": "npm run test",
+    "prerelease": "npm run test",
+    "test": "turbo run test",
+    "test:e2e:ci": "turbo run test:e2e:ci",
+    "test:update": "turbo run test:update"
   },
-  "homepage": "https://github.com/charlesponti/randomstuff#readme"
+  "workspaces": [
+    "scratchpad",
+    "apps/*",
+    "packages/*"
+  ]
 }

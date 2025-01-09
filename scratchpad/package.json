@@ -2,6 +2,7 @@
   "name": "scratchpad",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "vitest --run"
   },
@@ -11,5 +12,13 @@
   "description": "",
   "devDependencies": {
     "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^1.0.15",
+    "@ponti/utils": "*",
+    "ai": "^4.0.30",
+    "dotenv": "^16.4.7",
+    "openai": "^4.77.4",
+    "zod": "^3.24.1"
   }
 }
