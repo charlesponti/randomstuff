@@ -46,6 +46,7 @@ const redisPlugin: FastifyPluginAsync<RedisPluginOptions> = async (
 	fastify.decorate("redis", client);
 
 	fastify.addHook("onClose", async (instance) => {
+		if (client.status === "end") return;
 		await client.quit();
 	});
 };
