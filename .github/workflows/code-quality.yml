@@ -9,8 +9,6 @@ jobs:
   code-quality:
     runs-on: ubuntu-latest
     env:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
       APP_URL: ${{ secrets.APP_URL }}
       COOKIE_DOMAIN: ${{ secrets.COOKIE_DOMAIN }}
       COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
@@ -18,7 +16,7 @@ jobs:
       COOKIE_SECRET: "T1FBln1N5TI7qrzHv/ZW+sVbxKAQtBjUP6U="
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/hominem
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      GOOGLE_CLIENT_ID: "T1FBln1N5TI7qrzHv/ZW+sVbxKAQtBjUP6U="
+      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
       GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
       GOOGLE_REDIRECT_URI: ${{ secrets.GOOGLE_REDIRECT_URI }}
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
@@ -26,6 +24,10 @@ jobs:
       SENDGRID_API_KEY: "SG.sendgrid-api-key"
     services:
       postgres:
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: hominem
         image: postgres
         options: >-
           --health-cmd pg_isready
