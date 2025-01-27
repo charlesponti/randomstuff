@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+console.log("Test setup", JSON.stringify(process.env, null, 2));
+
 import { vi } from "vitest";
 
 import * as auth from "../src/plugins/auth/utils";

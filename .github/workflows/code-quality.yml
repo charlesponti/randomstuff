@@ -1,4 +1,5 @@
 name: code-quality
+
 on:
   push:
     branches:
@@ -22,55 +23,41 @@ jobs:
       JWT_SECRET: ${{ secrets.JWT_SECRET }}
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       SENDGRID_API_KEY: "SG.sendgrid-api-key"
-    services:
-      postgres:
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: hominem
-        image: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
+    # services:
+    #   postgres:
+    #     env:
+    #       POSTGRES_USER: postgres
+    #       POSTGRES_PASSWORD: postgres
+    #       POSTGRES_DB: hominem
+    #     image: postgres
+    #     options: >-
+    #       --health-cmd pg_isready
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+    #     ports:
+    #       - 5432:5432
     
     steps:
-    - name: 🛑 Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.9.1
-      
-    - name: ⬇️ Checkout repo
-      uses: actions/checkout@v4
+      - name: 🛑 Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
 
-    - name: 🏗️ Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: "20"
+      - name: 🏗️ Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
 
-    - name: 📦 Install dependencies
-      run: npm install
+      - name: 📦 Install dependencies
+        run: npm install
 
-    - name: 🔬 Lint & Type check
-      run: npm run lint
+      - name: 🔬 Lint & Type check
+        run: npm run lint
 
-    - name: 🧪 Unit tests
-      run: npm test
-      env:
-        APP_URL: ${{ secrets.APP_URL }}
-        COOKIE_DOMAIN: ${{ secrets.COOKIE_DOMAIN }}
-        COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
-        COOKIE_SALT: ${{ secrets.COOKIE_SALT }}
-        COOKIE_SECRET: "T1FBln1N5TI7qrzHv/ZW+sVbxKAQtBjUP6U="
-        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/hominem
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-        GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
-        GOOGLE_REDIRECT_URI: ${{ secrets.GOOGLE_REDIRECT_URI }}
-        JWT_SECRET: ${{ secrets.JWT_SECRET }}
-        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        SENDGRID_API_KEY: "SG.sendgrid-api-key"
+      - name: 🧪 Unit tests
+        run: npm test
 
   analyze:
     name: Analyze
