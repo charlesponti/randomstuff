@@ -1,7 +1,9 @@
 export default function Page() {
-  return (
-    <header className='p-4 border-[#ebebeb] border-b-[1px]'>
-      <p className="text-2xl font-bold">hiragana (common)</p>
-    </header>
-  );
+	return (
+		<div className="flex flex-col px-4 pt-4 h-screen">
+			<header>
+				<p className="text-2xl font-bold">Home</p>
+			</header>
+		</div>
+	);
 }

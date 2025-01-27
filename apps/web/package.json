@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3001",
+    "dev": "next dev --port 4444",
     "build": "next build",
     "start": "next start",
     "lint": "npx biome lint app"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.9.14",
+    "@ponti/utils": "*",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
     "@radix-ui/react-aspect-ratio": "^1.1.1",
@@ -38,6 +40,9 @@
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.6",
     "@radix-ui/themes": "^3.1.6",
+    "@tanstack/react-form": "^0.41.2",
+    "@tanstack/react-query": "^5.64.1",
+    "@tanstack/react-query-devtools": "^5.64.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.4",
@@ -46,9 +51,12 @@
     "mongodb": "^6.12.0",
     "next": "^14.1.0",
     "react": "^18.2.0",
-    "react-day-picker": "^9.5.0",
+    "react-day-picker": "^8.10.1",
     "react-dom": "^18.2.0",
-    "tailwind-merge": "^2.5.5"
+    "recharts": "^2.15.0",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@shadcn/ui": "^0.0.4",
@@ -56,10 +64,11 @@
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.23",
     "eslint-config-next": "^14.1.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.16",
     "tsconfig": "*",
-    "typescript": "^5.4.3"
+    "typescript": "5.4.3"
   }
 }

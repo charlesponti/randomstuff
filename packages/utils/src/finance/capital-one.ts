@@ -1,47 +1,31 @@
-import moment from 'moment';
-import {convertCSVtoJSON} from './converter';
+// import { type FinancialTransaction, FinancialTransactionType } from ".";
+import { randomUUID } from "node:crypto";
 
 export interface CapitalOneTransaction {
-  'Account Number': string;
-  'Transaction Date': string;
-  'Transaction Amount': string;
-  'Transaction Type': string;
-  'Transaction Description': string;
-  [key: string]: string;
+	"Account Number": string;
+	"Transaction Date": string;
+	"Transaction Amount": string;
+	"Transaction Type": string;
+	"Transaction Description": string;
+	Balance: string;
 }
 
-export const capital_one = {
-  name: 'Capital One 360 Checking',
-  bankName: 'capital_one',
-  ends_in: '9015',
-  path: 'finance/capital-one-checking.csv',
-  keyMap: {
-    'Account Number': 'account',
-    'Transaction Date': 'date',
-    'Transaction Amount': 'amount',
-    'Transaction Type': 'type',
-    'Transaction Description': 'description',
-    Balance: 'balance',
-  },
-  formatter(key: string, transaction: CapitalOneTransaction): string {
-    switch (key) {
-      case 'Account Number':
-        return capital_one.name;
-      case 'Transaction Date':
-        return moment(new Date(transaction[key])).format('YYYY-MM-DD');
-      case 'Transaction Description':
-        return transaction[key]
-          .replace('Withdrawal from ', '')
-          .replace('Withdrawal to ', '')
-          .replace('Digital Card Purchase - ', '')
-          .replace('Debit Card Purchase - ', '')
-          .replace('Deposit from ', '');
-      default:
-        return transaction[key] as string;
-    }
-  },
-};
+export function getCapitalOneTransactionType(
+	type: string,
+): FinancialTransactionType {
+	return type === "Credit"
+		? FinancialTransactionType.credit
+		: FinancialTransactionType.debit;
+}
 
-(async function () {
-  await convertCSVtoJSON(capital_one);
-})();
+export function convertCapitalOneTransaction(
+	t: CapitalOneTransaction,
+): FinancialTransaction {
+	return {
+		id: randomUUID(),
+		description: t["Transaction Description"],
+		amount: Number.parseFloat(t["Transaction Amount"]),
+		date: new Date(t["Transaction Date"]),
+		type: getCapitalOneTransactionType(t["Transaction Type"]),
+	};
+}

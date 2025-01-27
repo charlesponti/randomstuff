@@ -2,7 +2,6 @@
   "name": "scratchpad",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "vitest --run"
   },
@@ -11,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^2.1.8"
   },
   "dependencies": {

@@ -1,41 +1,45 @@
 {
-  "author": "",
-  "bugs": {
-    "url": "https://github.com/charlesponti/randomstuff/issues"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "@turbo/gen": "^1.9.7",
-    "husky": "^7.0.0",
-    "turbo": "^2.3.3"
-  },
-  "homepage": "https://github.com/charlesponti/randomstuff#readme",
-  "keywords": [],
-  "license": "ISC",
-  "name": "random",
-  "packageManager": "npm@10.2.4",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/charlesponti/randomstuff.git"
-  },
-  "scripts": {
-    "build": "turbo run build",
-    "clean": "gts clean",
-    "dev": "turbo run dev --parallel",
-    "lint": "turbo run lint",
-    "postinstall": "husky install",
-    "posttest": "npm run lint",
-    "prepare": "husky install",
-    "prepush": "npm run test",
-    "prerelease": "npm run test",
-    "test": "turbo run test",
-    "test:e2e:ci": "turbo run test:e2e:ci",
-    "test:update": "turbo run test:update"
-  },
-  "workspaces": [
-    "scratchpad",
-    "apps/*",
-    "packages/*"
-  ]
+	"name": "random",
+	"version": "1.0.0",
+	"description": "random stuff",
+	"author": {
+		"name": "chase bridges",
+		"email": "code@ponti.io",
+		"url": "https://ponti.io/"
+	},
+	"homepage": "https://github.com/charlesponti/randomstuff#readme",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/charlesponti/randomstuff.git"
+	},
+	"private": true,
+	"bugs": {
+		"url": "https://github.com/charlesponti/randomstuff/issues"
+	},
+	"scripts": {
+		"build": "turbo run build",
+		"clean": "gts clean",
+		"dev": "turbo run dev --parallel",
+		"lint": "turbo run lint",
+		"postinstall": "npx husky install",
+		"posttest": "npm run lint",
+		"prepare": "npx husky install",
+		"prepush": "npm run test",
+		"prerelease": "npm run test",
+		"test": "turbo run test",
+		"test:e2e:ci": "turbo run test:e2e:ci",
+		"test:update": "turbo run test:update"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@turbo/gen": "^1.9.7",
+		"husky": "^7.0.0",
+		"turbo": "^2.3.3",
+		"typescript": "5.4.3"
+	},
+	"keywords": [],
+	"license": "ISC",
+	"packageManager": "npm@10.2.4",
+	"workspaces": ["scratchpad", "apps/*", "packages/*"]
 }

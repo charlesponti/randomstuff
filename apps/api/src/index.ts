@@ -4,6 +4,7 @@ import { cors } from "hono/cors";
 type Bindings = {
   ENV: string;
   API_ORIGIN: string;
+  OPENAI_API_KEY: string;
 };
 
 const app = new Hono<{ Bindings: Bindings }>();
