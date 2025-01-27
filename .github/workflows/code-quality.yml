@@ -57,6 +57,20 @@ jobs:
 
     - name: 🧪 Unit tests
       run: npm test
+      env:
+        APP_URL: ${{ secrets.APP_URL }}
+        COOKIE_DOMAIN: ${{ secrets.COOKIE_DOMAIN }}
+        COOKIE_NAME: ${{ secrets.COOKIE_NAME }}
+        COOKIE_SALT: ${{ secrets.COOKIE_SALT }}
+        COOKIE_SECRET: "T1FBln1N5TI7qrzHv/ZW+sVbxKAQtBjUP6U="
+        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/hominem
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+        GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        GOOGLE_REDIRECT_URI: ${{ secrets.GOOGLE_REDIRECT_URI }}
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}
+        OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        SENDGRID_API_KEY: "SG.sendgrid-api-key"
 
   analyze:
     name: Analyze
