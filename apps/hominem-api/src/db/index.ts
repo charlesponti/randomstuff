@@ -4,11 +4,7 @@ import postgres from "postgres";
 import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import assert from "node:assert";
 
-const DATABASE_URL =
-	process.env.NODE_ENV === "test"
-		? "postgres://postgres:postgres@localhost:4433/hominem-test"
-		: process.env.DATABASE_URL;
-
+const { DATABASE_URL } = process.env;
 assert(DATABASE_URL, "Missing DATABASE_URL");
 
 const client = postgres(DATABASE_URL);

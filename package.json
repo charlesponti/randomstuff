@@ -26,7 +26,8 @@
 		"prepare": "npx husky install",
 		"prepush": "npm run test",
 		"prerelease": "npm run test",
-		"test": "turbo run test",
+		"test": "DATABASE_URL=postgres://postgres:postgres@localhost:4433/hominem-test turbo run test",
+		"test:ci": "turbo run test",
 		"test:e2e:ci": "turbo run test:e2e:ci",
 		"test:update": "turbo run test:update"
 	},

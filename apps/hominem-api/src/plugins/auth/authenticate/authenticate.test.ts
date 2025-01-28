@@ -140,8 +140,8 @@ describe("authenticatePlugin", () => {
 			},
 		});
 
-		expect(db.selectDistinct).toHaveBeenCalled();
 		expect(response.statusCode).toBe(401);
+		expect(db.selectDistinct).toHaveBeenCalled();
 	});
 
 	it("should return 401 for expired token", async () => {
