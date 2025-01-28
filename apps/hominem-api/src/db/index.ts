@@ -2,17 +2,16 @@ import fastifyPlugin from "fastify-plugin";
 import * as schema from "./drizzle/schema";
 import postgres from "postgres";
 import { drizzle, type PostgresJsDatabase } from "drizzle-orm/postgres-js";
+import assert from "node:assert";
 
-const databaseUrl =
+const DATABASE_URL =
 	process.env.NODE_ENV === "test"
 		? "postgres://postgres:postgres@localhost:4433/hominem-test"
 		: process.env.DATABASE_URL;
 
-if (!databaseUrl) {
-	throw new Error("DATABASE_URL environment variable is not set");
-}
+assert(DATABASE_URL, "Missing DATABASE_URL");
 
-const client = postgres(databaseUrl);
+const client = postgres(DATABASE_URL);
 
 export const db: PostgresJsDatabase<typeof schema> = drizzle(client, {
 	schema,

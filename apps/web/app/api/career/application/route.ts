@@ -1,66 +1,61 @@
-import { connectToDatabase } from '@ponti/utils/db'
-import { ApplicationService } from '@ponti/utils/career'
+import { ApplicationService } from "@ponti/utils/career";
 
 export async function POST(req: Request) {
-  const db = connectToDatabase()
-  const applicationService = new ApplicationService(db)
-  const data = await req.json()
+	const applicationService = new ApplicationService();
+	const data = await req.json();
 
-  const application = await applicationService.create({
-    ...data,
-    company: data.company,
-    position: data.position,
-    status: 'pending',
-  })
+	const application = await applicationService.create({
+		...data,
+		company: data.company,
+		position: data.position,
+		status: "pending",
+	});
 
-  return Response.json(application, { status: 201 })
+	return Response.json(application, { status: 201 });
 }
 
-export async function PUT(req: Request) {
-  const db = connectToDatabase()
-  const applicationService = new ApplicationService(db)
-  const { id, ...data } = await req.json()
+// export async function PUT(req: Request) {
+// 	const applicationService = new ApplicationService();
+// 	const { id, ...data } = await req.json();
 
-  const updated = await applicationService.update(id, data)
-  if (!updated) {
-    return Response.json({ error: 'Application not found' }, { status: 404 })
-  }
+// 	const updated = await applicationService.update(id, data);
+// 	if (!updated) {
+// 		return Response.json({ error: "Application not found" }, { status: 404 });
+// 	}
 
-  return Response.json(updated, { status: 200 })
-}
+// 	return Response.json(updated, { status: 200 });
+// }
 
-export async function GET(req: Request) {
-  const db = connectToDatabase()
-  const applicationService = new ApplicationService(db)
-  const { searchParams } = new URL(req.url)
-  const id = searchParams.get('id')
+// export async function GET(req: Request) {
+// 	const applicationService = new ApplicationService();
+// 	const { searchParams } = new URL(req.url);
+// 	const id = searchParams.get("id");
 
-  if (id) {
-    const application = await applicationService.findById(id)
-    if (!application) {
-      return Response.json({ error: 'Application not found' }, { status: 404 })
-    }
-    return Response.json(application)
-  }
+// 	if (id) {
+// 		const application = await applicationService.findById(id);
+// 		if (!application) {
+// 			return Response.json({ error: "Application not found" }, { status: 404 });
+// 		}
+// 		return Response.json(application);
+// 	}
 
-  const applications = await applicationService.findMany()
-  return Response.json(applications)
-}
+// 	const applications = await applicationService.findMany();
+// 	return Response.json(applications);
+// }
 
-export async function DELETE(req: Request) {
-  const db = connectToDatabase()
-  const applicationService = new ApplicationService(db)
-  const { searchParams } = new URL(req.url)
-  const id = searchParams.get('id')
+// export async function DELETE(req: Request) {
+// 	const applicationService = new ApplicationService();
+// 	const { searchParams } = new URL(req.url);
+// 	const id = searchParams.get("id");
 
-  if (!id) {
-    return Response.json({ error: 'ID is required' }, { status: 400 })
-  }
+// 	if (!id) {
+// 		return Response.json({ error: "ID is required" }, { status: 400 });
+// 	}
 
-  const deleted = await applicationService.delete(id)
-  if (!deleted) {
-    return Response.json({ error: 'Application not found' }, { status: 404 })
-  }
+// 	const deleted = await applicationService.delete(id);
+// 	if (!deleted) {
+// 		return Response.json({ error: "Application not found" }, { status: 404 });
+// 	}
 
-  return new Response(null, { status: 204 })
-}
+// 	return new Response(null, { status: 204 });
+// }

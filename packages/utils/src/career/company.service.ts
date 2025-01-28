@@ -1,5 +1,5 @@
 import { eq, type SQL } from "drizzle-orm";
-import type { connectToDatabase } from "../db/connection.ts";
+import { db } from "../db";
 import {
 	companies,
 	type Company,
@@ -7,17 +7,15 @@ import {
 } from "../db/schema/company.schema.ts";
 
 export class CompanyService {
-	constructor(private db: ReturnType<typeof connectToDatabase>) {}
-
 	async create(
 		data: Omit<NewCompany, "id" | "version" | "createdAt" | "updatedAt">,
 	) {
-		const [result] = await this.db.insert(companies).values(data).returning();
+		const [result] = await db.insert(companies).values(data).returning();
 		return result;
 	}
 
 	async update(id: string, data: Partial<NewCompany>) {
-		const [result] = await this.db
+		const [result] = await db
 			.update(companies)
 			.set({
 				...data,
@@ -30,15 +28,20 @@ export class CompanyService {
 	}
 
 	async findById(id: string) {
-		return await this.db.select().from(companies).where(eq(companies.id, id));
+		const [company] = await db
+			.select()
+			.from(companies)
+			.where(eq(companies.id, id))
+			.limit(1);
+		return company;
 	}
 
 	async findMany(query: SQL<Company>) {
-		return await this.db.select().from(companies).where(query);
+		return await db.select().from(companies).where(query);
 	}
 
 	async delete(id: string) {
-		const [result] = await this.db
+		const [result] = await db
 			.delete(companies)
 			.where(eq(companies.id, id))
 			.returning();

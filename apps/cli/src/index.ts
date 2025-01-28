@@ -5,6 +5,7 @@ import aiCommand from "./ai/index.ts";
 import scrapeCommand from "./commands/scrape.ts";
 import financeCommand from "./finance/index.ts";
 import googleCommand from "./google/cli.js";
+import thothCommand from "./commands/thoth";
 
 const program = new Command();
 
@@ -14,5 +15,6 @@ program.addCommand(scrapeCommand);
 program.addCommand(aiCommand);
 program.addCommand(financeCommand);
 program.addCommand(googleCommand);
+program.addCommand(thothCommand);
 
 program.parse(process.argv);

@@ -1,7 +1,7 @@
 import { eq, type SQL } from "drizzle-orm";
 import { jobs, type Job, type NewJob } from "../db/schema/job.schema.ts";
 import { companies } from "../db/schema/company.schema.ts";
-import { db } from "../db/connection.ts";
+import { db } from "../db/index.ts";
 
 export class JobService {
 	async create(

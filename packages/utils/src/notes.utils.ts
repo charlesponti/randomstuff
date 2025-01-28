@@ -1,17 +1,17 @@
 import * as chrono from "chrono-node";
 import nlp from "compromise";
 
-interface NoteDetails {
-	content: string[];
-	people: string[];
-	dates: {
+export interface NoteDetails {
+	content: string;
+	dates?: {
 		start: string;
 		end?: string;
 	}[];
-	category: string[];
-	labels: string[];
-	place: string;
-	date_time: string;
+	category?: string[];
+	labels?: string[];
+	people?: string[];
+	place?: string;
+	date_time?: string;
 }
 
 export function parseNoteDetails(userInput: string): NoteDetails {

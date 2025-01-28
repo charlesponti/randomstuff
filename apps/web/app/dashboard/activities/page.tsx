@@ -1,26 +1,25 @@
 "use client";
+
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import type { Task } from "@ponti/utils";
+import { parseNoteDetails, type NoteDetails } from "@ponti/utils/notes";
 import { Calendar, Hash, Tag } from "lucide-react";
 import React, { useState } from "react";
 
-import { parseInput } from "@/lib/text.tools.ts";
-
 const SmartTaskInput = () => {
 	const [inputValue, setInputValue] = useState("");
-	const [task, setTask] = useState<Task>({
-		title: "",
-		dueDate: null,
-		category: "",
+	const [task, setTask] = useState<NoteDetails>({
+		content: "",
+		dates: [],
+		category: [],
 		labels: [],
 	});
 
 	const handleInputChange = (e) => {
 		const value = e.target.value;
 		setInputValue(value);
-		setTask(parseInput(value));
+		setTask(parseNoteDetails(value));
 	};
 
 	const formatDate = (date) => {
@@ -44,21 +43,23 @@ const SmartTaskInput = () => {
 							className="w-full text-lg"
 						/>
 
-						{(task.title ||
-							task.dueDate ||
+						{(task.content ||
+							task.date_time ||
 							task.category ||
-							task.labels.length > 0) && (
+							(task.labels && task.labels.length > 0)) && (
 							<div className="space-y-3 p-4 bg-gray-50 rounded-lg">
-								{task.title && <div className="font-medium">{task.title}</div>}
+								{task.content && (
+									<div className="font-medium">{task.content}</div>
+								)}
 
 								<div className="flex flex-wrap gap-2">
-									{task.dueDate && (
+									{task.date_time && (
 										<Badge
 											variant="outline"
 											className="flex items-center gap-1"
 										>
 											<Calendar className="w-3 h-3" />
-											{formatDate(task.dueDate)}
+											{formatDate(task.date_time)}
 										</Badge>
 									)}
 
@@ -72,7 +73,7 @@ const SmartTaskInput = () => {
 										</Badge>
 									)}
 
-									{task.labels.map((label) => (
+									{task.labels?.map((label) => (
 										<Badge key={label} className="flex items-center gap-1">
 											<Tag className="w-3 h-3" />
 											{label}

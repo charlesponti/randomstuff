@@ -6,3 +6,6 @@ export const tags = pgTable("tags", {
 	name: text("name").notNull(),
 	userId: uuid("user_id").references(() => users.id),
 });
+
+export type Tag = typeof tags.$inferSelect;
+export type TagInsert = typeof tags.$inferInsert;

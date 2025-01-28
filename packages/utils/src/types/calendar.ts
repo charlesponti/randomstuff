@@ -39,6 +39,8 @@ export const events = pgTable("events", {
 	dateTime: timestamp("date_time"),
 	type: eventTypeEnum("type").notNull(),
 });
+export type CalendarEvent = typeof events.$inferSelect;
+export type CalendarEventInsert = typeof events.$inferInsert;
 
 export const eventsTags = pgTable("events_tags", {
 	eventId: uuid("event_id").references(() => events.id),

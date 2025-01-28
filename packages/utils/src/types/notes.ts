@@ -1,4 +1,4 @@
-import type { Tag } from "./tagging";
+import type { tags } from "./tagging";
 
 export interface Note {
 	id: string;
@@ -10,5 +10,5 @@ export interface Note {
 
 export interface NoteTag {
 	noteId: string;
-	tagId: Tag["id"];
+	tagId: (typeof tags.$inferSelect)["id"];
 }

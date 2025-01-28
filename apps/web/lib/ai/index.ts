@@ -1,44 +1,34 @@
-import { Command } from 'commander'
-import { cityInfoToolCall, eventInfoToolCall, toolCall } from './tools'
+import { get_location_info } from "./tools";
+import { generateObject, generateText } from "ai";
+import { openai } from "@ai-sdk/openai";
+import z from "zod";
 
-const program = new Command()
+export async function getAnswer({ prompt }: { prompt: string }) {
+	const response = await generateObject({
+		model: openai("gpt-4o-mini", { structuredOutputs: true }),
+		prompt,
+		schema: z.object({
+			answer: z.number(),
+		}),
+	});
 
-program.name('ai')
+	return response;
+}
 
-program
-  .command('tool-call')
-  .description('AI tools')
-  .requiredOption('-t, --text <text>', 'Text to analyze')
-  .action(async (options) => {
-    const response = await toolCall({
-      prompt: `
-        A taxi driver earns $9461 per 1-hour work.
-        If he works 12 hours a day and in 1 hour he uses 14-liters petrol with price $134 for 1-liter.
-        How much money does he earn in one day?
-      `,
-    })
+export const getCityInfo = async ({ city }: { city: string }) => {
+	const response = await generateText({
+		model: openai("gpt-4o-mini", { structuredOutputs: true }),
+		prompt: "Get information about a city",
+		tools: {
+			get_location_info,
+		},
+		messages: [
+			{
+				role: "user",
+				content: `Get information: ${city}`,
+			},
+		],
+	});
 
-    console.log(`FINAL TOOL CALLS: ${JSON.stringify(response.toolCalls, null, 2)}`)
-  })
-
-program
-  .command('city-info')
-  .description('City info tool')
-  .requiredOption('-c, --city <city>', 'City name')
-  .action(async (options) => {
-    const response = await cityInfoToolCall({
-      prompt: options.city,
-    })
-
-    console.log(`City info: ${JSON.stringify(response, null, 2)}`)
-  })
-
-program
-  .command('event-info')
-  .description('Event info tool')
-  .requiredOption('-q, --query <query>', 'Query')
-  .action(async (options) => {
-    const response = await eventInfoToolCall({ prompt: options.query })
-    console.log(`Event info: ${JSON.stringify(response.toolCalls, null, 2)}`)
-  })
-export default program
+	return response;
+};

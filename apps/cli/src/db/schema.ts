@@ -36,3 +36,6 @@ export const transactions = sqliteTable(
 		),
 	],
 );
+export type Transaction = typeof transactions.$inferSelect;
+export type TransactionInsert = typeof transactions.$inferInsert;
+export type TransactionType = Transaction["type"];

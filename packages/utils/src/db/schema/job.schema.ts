@@ -9,6 +9,7 @@ import {
 } from "drizzle-orm/pg-core";
 import { notes } from "./notes.schema";
 import { companies } from "./company.schema.ts";
+import { users } from "../../types/users.ts";
 
 export const jobs = pgTable("jobs", {
 	id: uuid("id").primaryKey().defaultRandom(),
@@ -47,28 +48,25 @@ export enum JobApplicationStatus {
 
 export const job_applications = pgTable("job_applications", {
 	id: uuid("id").primaryKey().defaultRandom(),
-	status: text("status").notNull().default("pending"),
 	position: text("position").notNull(),
 	resume: text("resume").notNull(),
 	coverLetter: text("cover_letter"),
-	companyId: uuid("company_id").notNull(),
-	userId: uuid("user_id").notNull(),
-	jobId: uuid("job_id"),
-
-	// From existing applications table
-	company: text("company").notNull(),
 	startDate: timestamp("start_date").notNull().defaultNow(),
 	endDate: timestamp("end_date"),
-	hadPhoneScreen: boolean("had_phone_screen").notNull().default(false),
-	isActive: boolean("is_active").notNull().default(true),
 	link: text("link"),
 	location: text("location").notNull().default("Remote"),
 	reference: boolean("reference").notNull().default(false),
-	stage: text("stage").notNull().default(JobApplicationStage.APPLICATION),
 	stages: jsonb("stages").notNull().default([JobApplicationStage.APPLICATION]),
-	applicationStatus: text("application_status")
+	status: text("status").notNull().default(JobApplicationStatus.APPLIED),
+
+	// Relationships
+	companyId: uuid("company_id")
 		.notNull()
-		.default(JobApplicationStatus.APPLIED),
+		.references(() => companies.id),
+	userId: uuid("user_id")
+		.notNull()
+		.references(() => users.id),
+	jobId: uuid("job_id").references(() => jobs.id),
 
 	// Metadata
 	createdAt: timestamp("created_at").notNull().defaultNow(),
