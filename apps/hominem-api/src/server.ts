@@ -37,11 +37,11 @@ export async function createServer(
 		});
 		await server.register(shutdownPlugin);
 		await server.register(sessionPlugin);
-		// await server.register(require("@fastify/multipart"));
-		// await server.register(require("@fastify/csrf-protection"), {
-		// 	sessionPlugin: "@fastify/secure-session",
-		// });
-		// await server.register(require("@fastify/helmet"));
+		await server.register(require("@fastify/multipart"));
+		await server.register(require("@fastify/csrf-protection"), {
+			sessionPlugin: "@fastify/secure-session",
+		});
+		await server.register(require("@fastify/helmet"));
 		await server.register(require("@fastify/jwt"), {
 			secret: JWT_SECRET,
 		});
