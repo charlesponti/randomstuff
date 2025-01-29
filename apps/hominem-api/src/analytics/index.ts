@@ -5,7 +5,7 @@ import {
 } from "@segment/analytics-node";
 export { default as EVENTS } from "./events";
 
-export const APP_USER_ID = process.env.APP_USER_ID;
+export const APP_USER_ID = process.env.APP_USER_ID || "app_user";
 
 // instantiation
 export const analytics = new Analytics({
