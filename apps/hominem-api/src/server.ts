@@ -31,10 +31,10 @@ export async function createServer(
 	try {
 		const server = fastify(opts);
 
-		// await server.register(require("@fastify/cors"), {
-		// 	origin: [APP_URL],
-		// 	credentials: true,
-		// });
+		await server.register(require("@fastify/cors"), {
+			origin: [APP_URL],
+			credentials: true,
+		});
 		await server.register(shutdownPlugin);
 		await server.register(sessionPlugin);
 		// await server.register(require("@fastify/multipart"));
