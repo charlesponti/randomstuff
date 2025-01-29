@@ -7,6 +7,7 @@ import assert from "node:assert";
 const { DATABASE_URL } = process.env;
 assert(DATABASE_URL, "Missing DATABASE_URL");
 
+console.log({ DATABASE_URL });
 const client = postgres(DATABASE_URL);
 
 export const db: PostgresJsDatabase<typeof schema> = drizzle(client, {
