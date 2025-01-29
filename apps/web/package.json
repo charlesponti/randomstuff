@@ -11,6 +11,10 @@
   "dependencies": {
     "@ai-sdk/openai": "^1.1.4",
     "@clerk/nextjs": "^6.9.14",
+    "@langchain/community": "^0.3.27",
+    "@langchain/core": "^0.3.36",
+    "@langchain/langgraph": "^0.2.42",
+    "@langchain/openai": "^0.4.2",
     "@ponti/utils": "*",
     "@radix-ui/react-accordion": "^1.2.2",
     "@radix-ui/react-alert-dialog": "^1.1.4",
