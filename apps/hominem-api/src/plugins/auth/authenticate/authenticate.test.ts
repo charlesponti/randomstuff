@@ -94,10 +94,15 @@ describe("authenticatePlugin", () => {
 			},
 		});
 
-		expect(JSON.parse(response.payload)).toEqual({});
 		expect(response.statusCode).toBe(200);
-		expect(JSON.parse(response.payload)).toHaveProperty("user");
-		expect(response.headers).toHaveProperty("authorization");
+		expect(JSON.parse(response.payload)).toEqual({
+			user: {
+				isAdmin: false,
+				roles: ["user"],
+				userId: "user_id",
+			},
+		});
+		expect(response.headers).toEqual("authorization");
 	});
 
 	it("should return 400 for non-existent token", async () => {
