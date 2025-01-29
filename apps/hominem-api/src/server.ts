@@ -42,9 +42,9 @@ export async function createServer(
 		// 	sessionPlugin: "@fastify/secure-session",
 		// });
 		// await server.register(require("@fastify/helmet"));
-		// await server.register(require("@fastify/jwt"), {
-		// 	secret: JWT_SECRET,
-		// });
+		await server.register(require("@fastify/jwt"), {
+			secret: JWT_SECRET,
+		});
 		// await server.register(PgPlugin);
 		// await server.register(circuitBreaker);
 
