@@ -6,7 +6,8 @@ import {
 	MessagesPlaceholder,
 } from "@langchain/core/prompts";
 import { ChatOpenAI } from "@langchain/openai";
-import { StreamingTextResponse, type Message as VercelChatMessage } from "ai";
+import { ToolNode } from "@langchain/langgraph/prebuilt";
+import type { Message as VercelChatMessage } from "ai";
 import type { FastifyPluginAsync } from "fastify";
 import fastifyPlugin from "fastify-plugin";
 import { AgentExecutor, createToolCallingAgent } from "langchain/agents";
@@ -41,7 +42,7 @@ const agentPlugin: FastifyPluginAsync = async (fastify) => {
 				(message: VercelChatMessage) =>
 					message.role === "user" || message.role === "assistant",
 			);
-			const returnIntermediateSteps = body.show_intermediate_steps;
+
 			const previousMessages = messages
 				.slice(0, -1)
 				.map(convertVercelMessageToLangChainMessage);
@@ -50,12 +51,12 @@ const agentPlugin: FastifyPluginAsync = async (fastify) => {
 			// Requires process.env.SERPAPI_API_KEY to be set: https://serpapi.com/
 			// You can remove this or use a different tool instead.
 			const tools = [new Calculator(), new SerpAPI()];
-			const chat = new ChatOpenAI({
+			const toolNode = new ToolNode(tools);
+			const llm = new ChatOpenAI({
 				model: "gpt-4o-mini",
 				temperature: 0,
-				// IMPORTANT: Must "streaming: true" on OpenAI to enable final output streaming below.
 				streaming: true,
-			});
+			}).bindTools(tools);
 
 			/**
 			 * Based on https://smith.langchain.com/hub/hwchase17/openai-functions-agent
@@ -72,66 +73,17 @@ const agentPlugin: FastifyPluginAsync = async (fastify) => {
 				new MessagesPlaceholder("agent_scratchpad"),
 			]);
 
-			const agent = await createToolCallingAgent({
-				llm: chat,
-				tools,
-				prompt,
-			});
-
-			const agentExecutor = new AgentExecutor({
-				agent,
-				tools,
-				// Set this if you want to receive all intermediate steps in the output of .invoke().
-				returnIntermediateSteps,
-			});
-
-			if (!returnIntermediateSteps) {
-				/**
-				 * Agent executors also allow you to stream back all generated tokens and steps
-				 * from their runs.
-				 *
-				 * This contains a lot of data, so we do some filtering of the generated log chunks
-				 * and only stream back the final response.
-				 *
-				 * This filtering is easiest with the OpenAI functions or tools agents, since final outputs
-				 * are log chunk values from the model that contain a string instead of a function call object.
-				 *
-				 * See: https://js.langchain.com/docs/modules/agents/how_to/streaming#streaming-tokens
-				 */
-				const logStream = await agentExecutor.streamLog({
-					input: currentMessageContent,
-					chat_history: previousMessages,
-				});
-
-				const textEncoder = new TextEncoder();
-				const transformStream = new ReadableStream({
-					async start(controller) {
-						for await (const chunk of logStream) {
-							if (chunk.ops?.length > 0 && chunk.ops[0].op === "add") {
-								const addOp = chunk.ops[0];
-								if (
-									addOp.path.startsWith("/logs/ChatOpenAI") &&
-									typeof addOp.value === "string" &&
-									addOp.value.length
-								) {
-									controller.enqueue(textEncoder.encode(addOp.value));
-								}
-							}
-						}
-						controller.close();
-					},
-				});
-
-				return new StreamingTextResponse(transformStream);
-			}
 			/**
 			 * Intermediate steps are the default outputs with the executor's `.stream()` method.
 			 * We could also pick them out from `streamLog` chunks.
 			 * They are generated as JSON objects, so streaming them is a bit more complicated.
 			 */
-			const result = await agentExecutor.invoke({
-				input: currentMessageContent,
-				chat_history: previousMessages,
+			const result = await toolNode.invoke({
+				messages: [
+					await llm.invoke(
+						messages.map(convertVercelMessageToLangChainMessage),
+					),
+				],
 			});
 
 			return reply.status(200).send({
