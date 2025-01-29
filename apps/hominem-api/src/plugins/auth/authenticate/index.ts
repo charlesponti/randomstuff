@@ -39,13 +39,13 @@ const authenticatePlugin: FastifyPluginAsync = async (server) => {
 			const { email, emailToken } = request.body as AuthenticateInput;
 
 			// Get short lived email token
-			const [fetchedEmailToken] = await db
+			const tokenResults = await db
 				.selectDistinct()
 				.from(Token)
 				.where(eq(Token.emailToken, emailToken))
 				.leftJoin(User, eq(User.id, Token.userId));
 
-			if (!fetchedEmailToken) {
+			if (!tokenResults || tokenResults.length === 0) {
 				reply.log.error("Login token does not exist");
 				track(APP_USER_ID, EVENTS.USER_EVENTS.EMAIL_TOKEN_VALIDATED_FAILURE, {
 					reason: TOKEN_FAILURE_REASONS.NOT_FOUND,
@@ -53,6 +53,7 @@ const authenticatePlugin: FastifyPluginAsync = async (server) => {
 				return reply.code(400).send("Invalid token");
 			}
 
+			const [fetchedEmailToken] = tokenResults;
 			if (!fetchedEmailToken.Token.valid) {
 				request.session.delete();
 				reply.log.error("Login token is not valid");
