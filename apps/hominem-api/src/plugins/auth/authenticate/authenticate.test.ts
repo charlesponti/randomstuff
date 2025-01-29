@@ -92,6 +92,7 @@ describe("authenticatePlugin", () => {
 			},
 		});
 
+		expect(JSON.parse(response.payload)).toEqual({});
 		expect(response.statusCode).toBe(200);
 		expect(JSON.parse(response.payload)).toHaveProperty("user");
 		expect(response.headers).toHaveProperty("authorization");

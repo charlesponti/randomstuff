@@ -39,12 +39,11 @@ const authenticatePlugin: FastifyPluginAsync = async (server) => {
 			const { email, emailToken } = request.body as AuthenticateInput;
 
 			// Get short lived email token
-			const fetchedEmailToken = await db
+			const [fetchedEmailToken] = await db
 				.selectDistinct()
 				.from(Token)
 				.where(eq(Token.emailToken, emailToken))
-				.leftJoin(User, eq(User.id, Token.userId))
-				.then(takeUniqueOrThrow);
+				.leftJoin(User, eq(User.id, Token.userId));
 
 			if (!fetchedEmailToken) {
 				reply.log.error("Login token does not exist");
@@ -113,14 +112,13 @@ const authenticatePlugin: FastifyPluginAsync = async (server) => {
 					return existingUser[0];
 				}
 
-				const createdUser = await t
+				const [createdUser] = await t
 					.insert(User)
 					.values({
 						id: crypto.randomUUID(),
 						email,
 					})
-					.returning()
-					.then(takeUniqueOrThrow);
+					.returning();
 
 				// 👇 create a list for the new user
 				await t.insert(List).values({

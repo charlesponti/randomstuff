@@ -23,7 +23,6 @@ export const takeOne = <T>(values: T[]): T => {
 	return values[0];
 };
 
-// Define this helper somewhere in your codebase:
 export const takeUniqueOrThrow = <T>(values: T[]): T => {
 	if (!Array.isArray(values)) return values;
 	if (values.length !== 1)
