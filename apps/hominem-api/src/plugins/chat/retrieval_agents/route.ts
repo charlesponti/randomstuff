@@ -134,12 +134,10 @@ const retrievalAgentPlugin: FastifyPluginAsync = async (fastify) => {
 				chat_history: previousMessages,
 			});
 
-			return reply
-				.status(200)
-				.send({
-					output: result.output,
-					intermediate_steps: result.intermediateSteps,
-				});
+			return reply.status(200).send({
+				output: result.output,
+				intermediate_steps: result.intermediateSteps,
+			});
 		} catch (e) {
 			// eslint-disable-next-line no-console
 			console.error(e);
