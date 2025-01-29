@@ -1,7 +1,7 @@
 import { ChatOpenAI } from "@langchain/openai";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { tool } from "@langchain/core/tools";
-import { ToolNode } from "@langchain/langgraph/prebuilt";
+import { MemorySaver } from "@langchain/langgraph";
+import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import z from "zod";
 
 const factCheckerTool = tool(
@@ -44,20 +44,21 @@ const sentimentAnalysisTool = tool(
 );
 
 const tools = [factCheckerTool, grammarCheckerTool, sentimentAnalysisTool];
-const toolNode = new ToolNode(tools);
+
+// Initialize memory to persist state between graph runs
+const checkpointer = new MemorySaver();
 
 const model = new ChatOpenAI({
 	model: "gpt-4o-mini",
 	temperature: 0,
 	streaming: true,
-}).bindTools(tools);
+});
 
-const prompt = ChatPromptTemplate.fromMessages([
-	["system", "You are a helpful assistant"],
-	["placeholder", "{chat_history}"],
-	["human", "{input}"],
-	["placeholder", "{agent_scratchpad}"],
-]);
+const app = createReactAgent({
+	llm: model,
+	tools,
+	checkpointSaver: checkpointer,
+});
 
 export async function POST(req: Request) {
 	try {
@@ -70,11 +71,17 @@ export async function POST(req: Request) {
 			);
 		}
 
-		const result = await model.invoke(body.input);
+		// const result = await model.invoke(body.input);
+		const response = await app.invoke({
+			messages: [
+				{
+					role: "user",
+					content: body.input,
+				},
+			],
+		});
 
-		const calls = await toolNode.invoke({ messages: [result] });
-
-		return Response.json(calls);
+		return Response.json(response);
 	} catch (error) {
 		console.error("Agent execution failed:", error);
 		return Response.json({ error: "Failed to process input" }, { status: 500 });

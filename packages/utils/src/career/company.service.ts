@@ -4,7 +4,7 @@ import {
 	companies,
 	type Company,
 	type NewCompany,
-} from "../db/schema/company.schema.ts";
+} from "../db/schema/company.schema";
 
 export class CompanyService {
 	async create(

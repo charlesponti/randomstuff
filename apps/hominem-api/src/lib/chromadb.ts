@@ -34,13 +34,9 @@ export namespace HominemVectorStore {
 		},
 	});
 
-	export const imageCollection = imageVectorStore.collection({
-		name: imageCollectionName,
-	});
+	export const imageCollection = imageVectorStore.collection;
 
-	export const documentCollection = documentVectorStore.collection({
-		name: documentCollectionName,
-	});
+	export const documentCollection = documentVectorStore.collection;
 
 	export type VectorEmbeddings = OpenAIEmbeddings;
 }

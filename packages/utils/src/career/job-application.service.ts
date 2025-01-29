@@ -4,8 +4,8 @@ import {
 	job_applications,
 	type JobApplication,
 	type JobApplicationInsert,
-} from "../db/schema/job.schema.ts";
-import { db } from "../db/index.ts";
+} from "../db/schema/job.schema";
+import { db } from "../db";
 
 export class ApplicationService {
 	async create(data: JobApplicationInsert) {

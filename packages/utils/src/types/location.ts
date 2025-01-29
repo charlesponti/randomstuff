@@ -6,9 +6,9 @@ import {
 	geometry,
 	boolean,
 } from "drizzle-orm/pg-core";
-import { events } from "./calendar.ts";
-import { users } from "./users.ts";
-import { tags } from "./tagging.ts";
+import { events } from "./calendar";
+import { users } from "./users";
+import { tags } from "./tagging";
 
 export const places = pgTable("places", {
 	id: uuid("id").primaryKey().defaultRandom(),

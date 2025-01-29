@@ -8,8 +8,8 @@ import {
 	uuid,
 } from "drizzle-orm/pg-core";
 import { notes } from "./notes.schema";
-import { companies } from "./company.schema.ts";
-import { users } from "../../types/users.ts";
+import { companies } from "./company.schema";
+import { users } from "../../types/users";
 
 export const jobs = pgTable("jobs", {
 	id: uuid("id").primaryKey().defaultRandom(),
