@@ -102,7 +102,7 @@ describe("authenticatePlugin", () => {
 				userId: "user_id",
 			},
 		});
-		expect(response.headers).toEqual("authorization");
+		expect(response.headers).toHaveProperty("authorization");
 	});
 
 	it("should return 400 for non-existent token", async () => {
