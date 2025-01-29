@@ -36,7 +36,7 @@ export async function createServer(
 		// 	credentials: true,
 		// });
 		// await server.register(shutdownPlugin);
-		// await server.register(sessionPlugin);
+		await server.register(sessionPlugin);
 		// await server.register(require("@fastify/multipart"));
 		// await server.register(require("@fastify/csrf-protection"), {
 		// 	sessionPlugin: "@fastify/secure-session",
