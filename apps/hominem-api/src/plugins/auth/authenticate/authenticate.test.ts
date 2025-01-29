@@ -30,7 +30,11 @@ describe("authenticatePlugin", () => {
 	let server: FastifyInstance;
 
 	beforeEach(async () => {
-		server = await createServer({ logger: false });
+		const testServer = await createServer({ logger: false });
+		if (!testServer) {
+			throw new Error("Server is null");
+		}
+		server = testServer;
 		await server.ready();
 	});
 

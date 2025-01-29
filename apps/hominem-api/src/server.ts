@@ -27,62 +27,67 @@ assert(JWT_SECRET, "Missing JWT_SECRET env var");
 
 export async function createServer(
 	opts: FastifyServerOptions = {},
-): Promise<FastifyInstance> {
-	const server = fastify(opts);
+): Promise<FastifyInstance | null> {
+	try {
+		const server = fastify(opts);
 
-	await server.register(require("@fastify/cors"), {
-		origin: [APP_URL],
-		credentials: true,
-	});
-	await server.register(shutdownPlugin);
-	await server.register(sessionPlugin);
-	await server.register(require("@fastify/multipart"));
-	await server.register(require("@fastify/csrf-protection"), {
-		sessionPlugin: "@fastify/secure-session",
-	});
-	await server.register(require("@fastify/helmet"));
-	await server.register(require("@fastify/jwt"), {
-		secret: JWT_SECRET,
-	});
-	await server.register(PgPlugin);
-	await server.register(circuitBreaker);
+		await server.register(require("@fastify/cors"), {
+			origin: [APP_URL],
+			credentials: true,
+		});
+		await server.register(shutdownPlugin);
+		await server.register(sessionPlugin);
+		await server.register(require("@fastify/multipart"));
+		await server.register(require("@fastify/csrf-protection"), {
+			sessionPlugin: "@fastify/secure-session",
+		});
+		await server.register(require("@fastify/helmet"));
+		await server.register(require("@fastify/jwt"), {
+			secret: JWT_SECRET,
+		});
+		await server.register(PgPlugin);
+		await server.register(circuitBreaker);
 
-	// Register Redis plugin
-	await server.register(import("./plugins/redis"), {
-		host: process.env.REDIS_HOST,
-		port: Number(process.env.REDIS_PORT),
-		password: process.env.REDIS_PASSWORD,
-	});
+		// Register Redis plugin
+		await server.register(import("./plugins/redis"), {
+			host: process.env.REDIS_HOST,
+			port: Number(process.env.REDIS_PORT),
+			password: process.env.REDIS_PASSWORD,
+		});
 
-	// Register rate limit plugin with Redis client
-	await server.register(import("./plugins/rate-limit"), {
-		redis: server.redis,
-		maxHits: 100,
-		segment: "api",
-		windowLength: 60000, // 1 minute
-	});
+		// Register rate limit plugin with Redis client
+		await server.register(import("./plugins/rate-limit"), {
+			redis: server.redis,
+			maxHits: 100,
+			segment: "api",
+			windowLength: 60000, // 1 minute
+		});
 
-	await server.register(statusPlugin);
-	await server.register(emailPlugin);
-	await server.register(adminPlugin);
-	await server.register(authPlugin);
-	await server.register(usersPlugin);
-	await server.register(listsPlugin);
-	await server.register(PlacesPlugin);
-	await server.register(invites);
-	await server.register(bookmarksPlugin);
-	await server.register(ideasPlugin);
-	await server.register(chatSingleResponsePlugin);
+		await server.register(statusPlugin);
+		await server.register(emailPlugin);
+		await server.register(adminPlugin);
+		await server.register(authPlugin);
+		await server.register(usersPlugin);
+		await server.register(listsPlugin);
+		await server.register(PlacesPlugin);
+		await server.register(invites);
+		await server.register(bookmarksPlugin);
+		await server.register(ideasPlugin);
+		await server.register(chatSingleResponsePlugin);
 
-	// Register Google-related routes
-	googleService.registerRoutes(server);
+		// Register Google-related routes
+		// googleService.registerRoutes(server);
 
-	server.setErrorHandler((error, request, reply) => {
+		server.setErrorHandler((error, request, reply) => {
+			console.error(error);
+			reply.status(500).send({ error: "Internal server error" });
+		});
+
+		return server;
+	} catch (error) {
 		console.error(error);
-		reply.status(500).send({ error: "Internal server error" });
-	});
-
-	return server;
+		return null;
+	}
 }
 
 export async function startServer() {
@@ -90,6 +95,10 @@ export async function startServer() {
 		logger: true,
 		disableRequestLogging: process.env.ENABLE_REQUEST_LOGGING !== "true",
 	});
+
+	if (!server) {
+		process.exit(1);
+	}
 
 	if (!PORT) {
 		server.log.error("Missing PORT env var");

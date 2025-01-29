@@ -6,7 +6,12 @@ describe("server", () => {
 	let testServer: FastifyInstance;
 
 	beforeAll(async () => {
-		testServer = await createServer({ logger: false });
+		const server = await createServer({ logger: false });
+		if (!server) {
+			throw new Error("Server is null");
+		}
+		testServer = server;
+		await testServer.ready();
 	});
 
 	afterAll(async () => {
