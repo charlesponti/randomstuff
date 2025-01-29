@@ -13,8 +13,8 @@ export default defineConfig({
 		exclude: ["**/node_modules/**", "**/build/**"],
 		env: {
 			DATABASE_URL: CI
-				? "postgres://postgres:postgres@localhost:4433/hominem-test"
-				: "postgres://postgres:postgres@localhost:5432/hominem-test",
+				? "postgres://postgres:postgres@localhost:5432/hominem-test"
+				: "postgres://postgres:postgres@localhost:4433/hominem-test",
 		},
 		coverage: {
 			provider: "v8",
