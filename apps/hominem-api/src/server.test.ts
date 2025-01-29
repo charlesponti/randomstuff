@@ -22,7 +22,7 @@ describe("server", () => {
 			method: "GET",
 			url: "/status",
 		});
-		expect(response.statusCode).toBe(200);
 		expect(JSON.parse(response.body)).toEqual({ up: true });
+		expect(response.statusCode).toBe(200);
 	});
 });
