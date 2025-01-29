@@ -35,7 +35,7 @@ export async function createServer(
 		// 	origin: [APP_URL],
 		// 	credentials: true,
 		// });
-		// await server.register(shutdownPlugin);
+		await server.register(shutdownPlugin);
 		await server.register(sessionPlugin);
 		// await server.register(require("@fastify/multipart"));
 		// await server.register(require("@fastify/csrf-protection"), {
@@ -64,16 +64,16 @@ export async function createServer(
 		// });
 
 		await server.register(statusPlugin);
-		// await server.register(emailPlugin);
-		// await server.register(adminPlugin);
-		// await server.register(authPlugin);
-		// await server.register(usersPlugin);
-		// await server.register(listsPlugin);
-		// await server.register(PlacesPlugin);
-		// await server.register(invites);
-		// await server.register(bookmarksPlugin);
-		// await server.register(ideasPlugin);
-		// await server.register(chatSingleResponsePlugin);
+		await server.register(emailPlugin);
+		await server.register(adminPlugin);
+		await server.register(authPlugin);
+		await server.register(usersPlugin);
+		await server.register(listsPlugin);
+		await server.register(PlacesPlugin);
+		await server.register(invites);
+		await server.register(bookmarksPlugin);
+		await server.register(ideasPlugin);
+		await server.register(chatSingleResponsePlugin);
 
 		// Register Google-related routes
 		// googleService.registerRoutes(server);
