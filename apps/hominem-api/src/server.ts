@@ -31,37 +31,37 @@ export async function createServer(
 	try {
 		const server = fastify(opts);
 
-		await server.register(require("@fastify/cors"), {
-			origin: [APP_URL],
-			credentials: true,
-		});
-		await server.register(shutdownPlugin);
-		await server.register(sessionPlugin);
-		await server.register(require("@fastify/multipart"));
-		await server.register(require("@fastify/csrf-protection"), {
-			sessionPlugin: "@fastify/secure-session",
-		});
-		await server.register(require("@fastify/helmet"));
-		await server.register(require("@fastify/jwt"), {
-			secret: JWT_SECRET,
-		});
-		await server.register(PgPlugin);
-		await server.register(circuitBreaker);
+		// await server.register(require("@fastify/cors"), {
+		// 	origin: [APP_URL],
+		// 	credentials: true,
+		// });
+		// await server.register(shutdownPlugin);
+		// await server.register(sessionPlugin);
+		// await server.register(require("@fastify/multipart"));
+		// await server.register(require("@fastify/csrf-protection"), {
+		// 	sessionPlugin: "@fastify/secure-session",
+		// });
+		// await server.register(require("@fastify/helmet"));
+		// await server.register(require("@fastify/jwt"), {
+		// 	secret: JWT_SECRET,
+		// });
+		// await server.register(PgPlugin);
+		// await server.register(circuitBreaker);
 
-		// Register Redis plugin
-		await server.register(import("./plugins/redis"), {
-			host: process.env.REDIS_HOST,
-			port: Number(process.env.REDIS_PORT),
-			password: process.env.REDIS_PASSWORD,
-		});
+		// // Register Redis plugin
+		// await server.register(import("./plugins/redis"), {
+		// 	host: process.env.REDIS_HOST,
+		// 	port: Number(process.env.REDIS_PORT),
+		// 	password: process.env.REDIS_PASSWORD,
+		// });
 
-		// Register rate limit plugin with Redis client
-		await server.register(import("./plugins/rate-limit"), {
-			redis: server.redis,
-			maxHits: 100,
-			segment: "api",
-			windowLength: 60000, // 1 minute
-		});
+		// // Register rate limit plugin with Redis client
+		// await server.register(import("./plugins/rate-limit"), {
+		// 	redis: server.redis,
+		// 	maxHits: 100,
+		// 	segment: "api",
+		// 	windowLength: 60000, // 1 minute
+		// });
 
 		await server.register(statusPlugin);
 		// await server.register(emailPlugin);
