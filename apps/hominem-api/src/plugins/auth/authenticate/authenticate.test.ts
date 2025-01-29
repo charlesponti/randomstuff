@@ -55,10 +55,12 @@ describe("authenticatePlugin", () => {
 			from: vi.fn().mockReturnValue({
 				where: vi.fn().mockReturnValue({
 					leftJoin: vi.fn().mockReturnValue(
-						Promise.resolve({
-							Token: mockToken,
-							User: mockUser,
-						}),
+						Promise.resolve([
+							{
+								Token: mockToken,
+								User: mockUser,
+							},
+						]),
 					),
 				}),
 			}),
@@ -126,10 +128,12 @@ describe("authenticatePlugin", () => {
 			from: vi.fn().mockReturnValue({
 				where: vi.fn().mockReturnValue({
 					leftJoin: vi.fn().mockReturnValue(
-						Promise.resolve({
-							Token: { valid: false },
-							User: { email: "test@example.com" },
-						}),
+						Promise.resolve([
+							{
+								Token: { valid: false },
+								User: { email: "test@example.com" },
+							},
+						]),
 					),
 				}),
 			}),
@@ -154,13 +158,15 @@ describe("authenticatePlugin", () => {
 			from: vi.fn().mockReturnValue({
 				where: vi.fn().mockReturnValue({
 					leftJoin: vi.fn().mockReturnValue(
-						Promise.resolve({
-							Token: {
-								valid: true,
-								expiration: add(new Date(), { hours: -1 }).toISOString(),
+						Promise.resolve([
+							{
+								Token: {
+									valid: true,
+									expiration: add(new Date(), { hours: -1 }).toISOString(),
+								},
+								User: { email: "test@example.com" },
 							},
-							User: { email: "test@example.com" },
-						}),
+						]),
 					),
 				}),
 			}),
@@ -185,13 +191,15 @@ describe("authenticatePlugin", () => {
 			from: vi.fn().mockReturnValue({
 				where: vi.fn().mockReturnValue({
 					leftJoin: vi.fn().mockReturnValue(
-						Promise.resolve({
-							Token: {
-								valid: true,
-								expiration: add(new Date(), { hours: 1 }).toISOString(),
+						Promise.resolve([
+							{
+								Token: {
+									valid: true,
+									expiration: add(new Date(), { hours: 1 }).toISOString(),
+								},
+								User: { email: "different@example.com" },
 							},
-							User: { email: "different@example.com" },
-						}),
+						]),
 					),
 				}),
 			}),
