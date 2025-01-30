@@ -1,16 +1,16 @@
-name: web-deploy
+name: api-deploy
 
 on:
   push:
     branches: [main]
     paths:
-      - "apps/web/**"
+      - "apps/hominem-api/**"
       - "packages/**"
       - ".github/workflows/**"
   pull_request:
     branches: [main]
     paths:
-      - "apps/web/**"
+      - "apps/hominem-api/**"
       - "packages/**"
       - ".github/workflows/**"
 
@@ -34,6 +34,6 @@ jobs:
         run: npm install -g @railway/cli
 
       - name: Deploy
-        run: railway up --service ${{ secrets.RAILWAY_SERVICE_WEB }}
+        run: railway up --service ${{ secrets.RAILWAY_SERVICE_API }}
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
