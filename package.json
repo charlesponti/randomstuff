@@ -26,6 +26,8 @@
 		"prepare": "npx husky install",
 		"prepush": "npm run test",
 		"prerelease": "npm run test",
+		"start:api": "cd apps/hominem-api && npm start",
+		"start:web": "cd apps/web && npm start",
 		"test": "turbo run test",
 		"test:ci": "turbo run test",
 		"test:e2e:ci": "turbo run test:e2e:ci",

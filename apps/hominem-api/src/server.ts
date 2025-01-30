@@ -45,8 +45,8 @@ export async function createServer(
 		await server.register(require("@fastify/jwt"), {
 			secret: JWT_SECRET,
 		});
-		// await server.register(PgPlugin);
-		// await server.register(circuitBreaker);
+		await server.register(PgPlugin);
+		await server.register(circuitBreaker);
 
 		// // Register Redis plugin
 		// await server.register(import("./plugins/redis"), {

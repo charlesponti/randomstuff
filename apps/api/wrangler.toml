@@ -5,7 +5,6 @@ compatibility_date = "2024-12-17"
 [env.staging.vars]
 ENV = "development"
 API_ORIGIN = "*"
-GOOGLE_API_KEY = "GoogleApiKey"
 
 # compatibility_flags = [ "nodejs_compat" ]
 

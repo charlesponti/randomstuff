@@ -3,10 +3,11 @@ import { tool } from "@langchain/core/tools";
 import { MemorySaver } from "@langchain/langgraph";
 import { createReactAgent } from "@langchain/langgraph/prebuilt";
 import z from "zod";
+import { HumanMessage } from "@langchain/core/messages";
 
 const factCheckerTool = tool(
-	async function call({ input }: { input: string }): Promise<string> {
-		return `Fact-check result for "${input}": All facts seem correct.`;
+	async ({ input }: { input: string }): Promise<string> => {
+		return "All facts seem correct.";
 	},
 	{
 		name: "fact-checker",
@@ -18,8 +19,8 @@ const factCheckerTool = tool(
 );
 
 const grammarCheckerTool = tool(
-	async function call({ input }: { input: string }): Promise<string> {
-		return `Grammar-check result for "${input}": No errors found.`;
+	async ({ input }: { input: string }): Promise<string> => {
+		return "No errors found.";
 	},
 	{
 		name: "grammar-checker",
@@ -31,8 +32,8 @@ const grammarCheckerTool = tool(
 );
 
 const sentimentAnalysisTool = tool(
-	async function call({ input }: { input: string }): Promise<string> {
-		return `Sentiment analysis for "${input}": Positive.`;
+	async ({ input }: { input: string }): Promise<string> => {
+		return "Positive.";
 	},
 	{
 		name: "sentiment-analysis",
@@ -71,15 +72,12 @@ export async function POST(req: Request) {
 			);
 		}
 
-		// const result = await model.invoke(body.input);
-		const response = await app.invoke({
-			messages: [
-				{
-					role: "user",
-					content: body.input,
-				},
-			],
-		});
+		const response = await app.invoke(
+			{
+				messages: [new HumanMessage(body.input)],
+			},
+			{ configurable: { thread_id: "42" } },
+		);
 
 		return Response.json(response);
 	} catch (error) {
